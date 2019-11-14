@@ -1,3 +1,6 @@
+boolean up, down, left, right;
+float lx = 0, ly = height/2, lz = 0;
+
 PImage qblock;
 PImage map; // map is 2d
 color black = #000000;
@@ -15,24 +18,28 @@ void setup() {
 
 void draw() {
   background(255);
+  camera(lx, ly, lz, 0, 0, -1, 0, 1, 0);
+  if (up) lz = lz - blockSize;
+  if (down) lz = lz + blockSize;
+  if (left) lx = lx - blockSize;
+  if (right) lx = lx + blockSize;
+  //pushMatrix();
   drawMap();
   drawGround();
+  //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
 }
 
 void drawMap() {
-  pushMatrix();
-  rotateX(rotx);
-  rotateY(roty);
   int mapX = 0, mapY = 0;
   int worldX = 0, worldY = height/2, worldZ = 0;
 
   while (mapY < map.height) {
     color pixel = map.get(mapX, mapY); //while loop visits every pixel and records color temporarily (this definition might be incorrect, due to incomprehension)
+    worldX = mapX*blockSize;
+    worldZ = mapY*blockSize;
     if (pixel == black) {
-      worldX = mapX*blockSize;
-      worldZ = mapY*blockSize;
-      texturedBox(qblock, worldX, worldY, worldZ, blockSize);
+      texturedBox(qblock, worldX, height/2, worldZ, blockSize);
     }
     mapX++;
     if (mapX > map.width) {
@@ -40,16 +47,25 @@ void drawMap() {
       mapY++;
     }
   }
-  popMatrix();
 }
 
 void drawGround() {
-  int i = 0;
-  while (i < 80) {
-    line(i, height/2, 0, i, height/2, 1000);
-    line(0, height/2, i, 1000, height/2, i);
-    i = i + 10;
+  int x = 0;
+  int y = height/2 + blockSize/2;
+  stroke(100);
+  strokeWeight(1);
+  while (x < map.width*blockSize) {
+    line(x, y, 0, x, y, map.height*blockSize);
+    x = x + blockSize;
   }
+
+  int z = 0;
+  while (z < map.height*blockSize) {
+    line(0, y, z, map.width*blockSize, y, z);
+    z = z +blockSize;
+  }
+
+  noStroke();
 }
 
 void texturedBox(PImage tex, float x, float y, float z, float size) {
@@ -103,4 +119,17 @@ void texturedBox(PImage tex, float x, float y, float z, float size) {
 void mouseDragged() {
   rotx = rotx + (pmouseY - mouseY) * 0.01;
   roty = roty - (pmouseX - mouseX) * 0.01;
+}
+void keyPressed() {
+  if (keyCode == UP) up = true;
+  if (keyCode == DOWN) down = true;
+  if (keyCode == LEFT) left = true;
+  if (keyCode == RIGHT) right = true;
+}
+
+void keyReleased() {
+  if (keyCode == UP) up = false;
+  if (keyCode == DOWN) down = false;
+  if (keyCode == LEFT) left = false;
+  if (keyCode == RIGHT) right = false;
 }
