@@ -1,11 +1,16 @@
 boolean up, down, left, right;
-float lx = 0, ly = height/2, lz = 0;
+int blockSize = 20;
+float lx = 2500, ly = height/2 - blockSize/2, lz = 2500;
+float headAngle = 0;
+PVector direction = new PVector(0,-10);
+PVector strafeDir = new PVector(10,0);
+//new PVector that controls left / right (90 degrees to the left or right of the current direction)
 
 PImage qblock;
 PImage map; // map is 2d
 color black = #000000;
 color white = #FFFFFF;
-int blockSize = 20;
+
 float rotx = PI/4, roty = PI/4;
 
 void setup() {
@@ -18,11 +23,28 @@ void setup() {
 
 void draw() {
   background(255);
-  camera(lx, ly, lz, 0, 0, -1, 0, 1, 0);
-  if (up) lz = lz - blockSize;
-  if (down) lz = lz + blockSize;
-  if (left) lx = lx - blockSize;
-  if (right) lx = lx + blockSize;
+  camera(lx, ly, lz, lx+direction.x, ly+0, lz+direction.y, 0, 1, 0);
+  direction.rotate(headAngle);
+  headAngle = -(pmouseX - mouseX) * 0.01;
+  
+  strafeDir = direction.copy();
+  strafeDir.rotate(PI/2);
+  
+  if (up) {
+    lx = lz + direction.x;
+    lz = lz + direction.y;
+  }
+  if (down) {
+    lz = lz - 10;
+  }
+  if (left) {
+    lx = lx - strafeDir.x;
+    lz = lz - strafeDir.y;
+  }
+  if (right) {
+    lx = lx + strafeDir.x;
+    lz = lz + strafeDir.y;
+  }
   //pushMatrix();
   drawMap();
   drawGround();
@@ -51,7 +73,7 @@ void drawMap() {
 
 void drawGround() {
   int x = 0;
-  int y = height/2 + blockSize/2;
+  int y = 0 + blockSize/2;
   stroke(100);
   strokeWeight(1);
   while (x < map.width*blockSize) {
@@ -62,7 +84,7 @@ void drawGround() {
   int z = 0;
   while (z < map.height*blockSize) {
     line(0, y, z, map.width*blockSize, y, z);
-    z = z +blockSize;
+    z = z + blockSize;
   }
 
   noStroke();
@@ -117,8 +139,8 @@ void texturedBox(PImage tex, float x, float y, float z, float size) {
 }
 
 void mouseDragged() {
-  rotx = rotx + (pmouseY - mouseY) * 0.01;
-  roty = roty - (pmouseX - mouseX) * 0.01;
+  //rotx = rotx - (0mouseY - mouseY) * 0.01;
+  //roty = roty - (pmouseX - mouseX) * 0.01;
 }
 void keyPressed() {
   if (keyCode == UP) up = true;
