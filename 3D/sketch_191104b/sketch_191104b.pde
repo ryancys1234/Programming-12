@@ -2,7 +2,7 @@ boolean up, down, left, right, space;
 
 int blockSize = 20;
 
-float lx = 2500, ly = height/2 - blockSize/2, lz = 2500;
+float lx = 2500, ly = height/2 - 4*blockSize, lz = 2500;
 float rotx = PI/4, roty = PI/4;
 float headAngle = 0;
 
@@ -34,15 +34,17 @@ void draw() {
   direction.rotate(headAngle);
   headAngle = -(pmouseX - mouseX) * 0.01;
 
+  lights();
+
   strafeDir = direction.copy();
   strafeDir.rotate(PI/2);
 
   if (up) {
-    lx = lz + direction.x;
+    lx = lx + direction.x;
     lz = lz + direction.y;
   }
   if (down) {
-    lx = lz - direction.x;
+    lx = lx - direction.x;
     lz = lz - direction.y;
   }
   if (left) {
@@ -73,7 +75,7 @@ void drawMap() {
     worldX = mapX*blockSize;
     worldZ = mapY*blockSize;
     if (pixel == black) {
-      texturedBox(qblock, worldX, height/2, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, 0, worldZ, blockSize/2);
     }
     mapX++;
     if (mapX > map.width) {
