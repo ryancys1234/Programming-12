@@ -11,13 +11,14 @@ class Bullet {
     vz = _vz;
 
     lives = 1;
-    timerBullet = 15;
+    timerBullet = 100;
   }
 
   void show() {
     pushMatrix();
     translate(x, y, z);
-    fill(#104F9B);
+    lights();
+    fill(#FFFFFF);
     sphere(10);
     popMatrix();
   }

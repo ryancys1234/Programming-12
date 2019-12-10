@@ -1,14 +1,15 @@
-boolean up, down, left, right, space;
+boolean up, down, left, right, space, shift, w, a, s, d;
 
 int blockSize = 20;
 
-float lx = 2500, ly = height/2 - 4*blockSize, lz = 2500;
+float lx = 1200, ly = height/2 - 4*blockSize, lz = 500; // Why is it "- 4*blockSize"?
 float rotx = PI/4, roty = PI/4;
-float headAngle = 0;
+float headAngle;
 
 PVector direction = new PVector(0, -10);
 PVector velocity;
 PVector strafeDir = new PVector(10, 0);
+PVector verticalDir = new PVector(0, 0, -10);
 // New PVector that controls left / right (90 degrees to the left or right of the current direction)
 
 ArrayList<Bullet> bullets;
@@ -39,24 +40,27 @@ void draw() {
   strafeDir = direction.copy();
   strafeDir.rotate(PI/2);
 
-  if (up) {
+  if (up || w) {
     lx = lx + direction.x;
     lz = lz + direction.y;
   }
-  if (down) {
+  if (down || s) {
     lx = lx - direction.x;
     lz = lz - direction.y;
   }
-  if (left) {
+  if (left || a) {
     lx = lx - strafeDir.x;
     lz = lz - strafeDir.y;
   }
-  if (right) {
+  if (right || d) {
     lx = lx + strafeDir.x;
     lz = lz + strafeDir.y;
   }
   if (space) {
-    bullets.add(new Bullet(lx, ly, lz, direction.x, direction.z));
+    ly = ly + verticalDir.z;
+  }
+  if (shift) {
+    ly = ly - verticalDir.z;
   }
   //pushMatrix();
   drawMap();
@@ -75,7 +79,7 @@ void drawMap() {
     worldX = mapX*blockSize;
     worldZ = mapY*blockSize;
     if (pixel == black) {
-      texturedBox(qblock, worldX, 0, worldZ, blockSize/2);
+      texturedBox1(qblock, worldX, 0, worldZ, blockSize/2);
     }
     mapX++;
     if (mapX > map.width) {
@@ -104,64 +108,21 @@ void drawGround() {
   noStroke();
 }
 
-void texturedBox(PImage tex, float x, float y, float z, float size) {
-  pushMatrix();
-  translate(x, y, z);
-  scale(size);
-  beginShape(QUADS);
-  noStroke();
-  texture(tex);
-  // front face
-  vertex(-1, -1, 1, 0, 0);
-  vertex(1, -1, 1, 1, 0);
-  vertex(1, 1, 1, 1, 1);
-  vertex(-1, 1, 1, 0, 1);
-
-  // back face
-  vertex(-1, -1, -1, 0, 0);
-  vertex(1, -1, -1, 1, 0);
-  vertex(1, 1, -1, 1, 1);
-  vertex(-1, 1, -1, 0, 1);
-
-  // bottom face
-  vertex(-1, 1, -1, 0, 0);
-  vertex(1, 1, -1, 1, 0);
-  vertex(1, 1, 1, 1, 1);
-  vertex(-1, 1, 1, 0, 1);
-
-  // top face
-  vertex(-1, -1, -1, 0, 0);
-  vertex(1, -1, -1, 1, 0);
-  vertex(1, -1, 1, 1, 1);
-  vertex(-1, -1, 1, 0, 1);
-
-  // right face
-  vertex(1, -1, 1, 0, 0);
-  vertex(1, -1, -1, 1, 0);
-  vertex(1, 1, -1, 1, 1);
-  vertex(1, 1, 1, 0, 1);
-
-  // left face
-  vertex(-1, -1, 1, 0, 0);
-  vertex(-1, -1, -1, 1, 0);
-  vertex(-1, 1, -1, 1, 1);
-  vertex(-1, 1, 1, 0, 1);
-
-
-  endShape();
-  popMatrix();
+void mousePressed() {
+  bullets.add(new Bullet(lx, ly, lz, direction.x, direction.z));
 }
 
-void mouseDragged() {
-  //rotx = rotx - (0mouseY - mouseY) * 0.01;
-  //roty = roty - (pmouseX - mouseX) * 0.01;
-}
 void keyPressed() {
   if (keyCode == UP) up = true;
   if (keyCode == DOWN) down = true;
   if (keyCode == LEFT) left = true;
   if (keyCode == RIGHT) right = true;
   if (keyCode == ' ') space = true;
+  if (keyCode == SHIFT) shift = true;
+  if (keyCode == 'W') w = true;
+  if (keyCode == 'A') a = true;
+  if (keyCode == 'S') s = true;
+  if (keyCode == 'D') d = true;
 }
 
 void keyReleased() {
@@ -169,5 +130,10 @@ void keyReleased() {
   if (keyCode == DOWN) down = false;
   if (keyCode == LEFT) left = false;
   if (keyCode == RIGHT) right = false;
-  if (keyCode == ' ') space = true;
+  if (keyCode == ' ') space = false;
+  if (keyCode == SHIFT) shift = false;
+  if (keyCode == 'W') w = false;
+  if (keyCode == 'A') a = false;
+  if (keyCode == 'S') s = false;
+  if (keyCode == 'D') d = false;
 }
