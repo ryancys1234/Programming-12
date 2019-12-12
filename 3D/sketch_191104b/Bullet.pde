@@ -1,13 +1,14 @@
 class Bullet {
-  float x, y, z, vx, vz;
+  float x, y, z, vx, vy, vz;
   int timerBullet;
   int lives;
 
-  Bullet(float _x, float _y, float _z, float _vx, float _vz) {
+  Bullet(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
     y = _y;
     z = _z;
     vx = _vx;
+    vy = _vy;
     vz = _vz;
 
     lives = 1;
@@ -17,7 +18,7 @@ class Bullet {
   void show() {
     pushMatrix();
     translate(x, y, z);
-    lights();
+    //lights();
     fill(#FFFFFF);
     sphere(10);
     popMatrix();
@@ -25,6 +26,7 @@ class Bullet {
 
   void act() {
     x = x + vx;
+    y = y + vy;
     z = z + vz;
     timerBullet--;
     if (timerBullet == 0) {

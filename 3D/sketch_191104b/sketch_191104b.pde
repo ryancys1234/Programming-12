@@ -4,15 +4,17 @@ int blockSize = 20;
 
 float lx = 1200, ly = height/2 - 4*blockSize, lz = 500; // Why is it "- 4*blockSize"?
 float rotx = PI/4, roty = PI/4;
-float headAngle;
+float horizontalHeadAngle = 0, verticalHeadAngle = 0;
 
-PVector direction = new PVector(0, -10);
+PVector horizontalDirection = new PVector(0, -10);
+PVector verticalDirection = new PVector(10, 0);
 PVector velocity;
 PVector strafeDir = new PVector(10, 0);
 PVector verticalDir = new PVector(0, 0, -10);
 // New PVector that controls left / right (90 degrees to the left or right of the current direction)
 
 ArrayList<Bullet> bullets;
+ArrayList<Rain> rain;
 
 PImage qblock;
 PImage map; // Map is 2d
@@ -30,23 +32,30 @@ void setup() {
 }
 
 void draw() {
-  background(255);
-  camera(lx, ly, lz, lx+direction.x, ly+0, lz+direction.y, 0, 1, 0);
-  direction.rotate(headAngle);
-  headAngle = -(pmouseX - mouseX) * 0.01;
+  background(0);
+  float dx = lx + horizontalDirection.x;
+  float dy = ly + verticalDirection.y;
+  float dz = lz + horizontalDirection.y;
+  camera(lx, ly, lz, dx, dy, dz, 0, 1, 0);
+  horizontalDirection.rotate(horizontalHeadAngle*0.75);
+  verticalDirection.rotate(verticalHeadAngle*0.75);
+  horizontalHeadAngle = -(pmouseX - mouseX) * 0.01;
+  verticalHeadAngle = (pmouseY - mouseY) * 0.01;
 
+  // float dx = lx + xzDirection.x
+  //float dy = ly
   lights();
 
-  strafeDir = direction.copy();
+  strafeDir = horizontalDirection.copy();
   strafeDir.rotate(PI/2);
 
   if (up || w) {
-    lx = lx + direction.x;
-    lz = lz + direction.y;
+    lx = lx + horizontalDirection.x;
+    lz = lz + horizontalDirection.y;
   }
   if (down || s) {
-    lx = lx - direction.x;
-    lz = lz - direction.y;
+    lx = lx - horizontalDirection.x;
+    lz = lz - horizontalDirection.y;
   }
   if (left || a) {
     lx = lx - strafeDir.x;
@@ -66,6 +75,7 @@ void draw() {
   drawMap();
   drawGround();
   handleBullets();
+  rain.add(new Rain(0, -100, 0));
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
 }
@@ -92,7 +102,7 @@ void drawMap() {
 void drawGround() {
   int x = 0;
   int y = 0 + blockSize/2;
-  stroke(100);
+  stroke(255);
   strokeWeight(1);
   while (x < map.width*blockSize) {
     line(x, y, 0, x, y, map.height*blockSize);
@@ -109,7 +119,7 @@ void drawGround() {
 }
 
 void mousePressed() {
-  bullets.add(new Bullet(lx, ly, lz, direction.x, direction.z));
+  bullets.add(new Bullet(lx, ly, lz, horizontalDirection.x, -verticalDirection.y, horizontalDirection.z));
 }
 
 void keyPressed() {
