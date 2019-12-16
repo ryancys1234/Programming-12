@@ -33,6 +33,8 @@ void setup() {
   map1 = loadImage("map1.png");
   map2 = loadImage("map2.png");
   map3 = loadImage("map3.png");
+  map4 = loadImage("map4.png");
+  map5 = loadImage("map5.png");
   imageMode(CENTER);
   textureMode(NORMAL);
   bullets = new ArrayList<Bullet>(); // Putting a number inside () sets a limit to the number of objects in the array list
@@ -90,14 +92,14 @@ void draw() {
   drawGround();
   handleBullets();
   rain.add(new Rain(0, -8000, 0, rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(3000, 4000), -8000, random(3000, 4000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(2000, 3000), -8000, random(2000, 3000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(4000), -8000, random(4000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(1000, 2000), -8000, random(1000, 2000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(2000, 3000), -8000, random(2000, 3000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(1000), -8000, random(1000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(3000, 4000), -8000, random(3000, 4000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(1000, 2000), -8000, random(1000, 2000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   handleRain();
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
