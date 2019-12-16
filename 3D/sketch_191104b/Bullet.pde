@@ -66,9 +66,9 @@ class BulletObjects extends GameObjects {
   void show() {
     pushMatrix();
     translate(x, y, z);
-    lights();
     fill(#47FF00);
     box(5);
+    noFill();
     popMatrix();
   }
 
