@@ -69,46 +69,71 @@ void drawMap() {
       mapY++;
     }
   }
-  //for (int mapX = 0, mapY = 0, worldX = 0, worldZ = 0; mapY < map4.height; ) {
-  //  color pixel4 = map4.get(mapX, mapY);
-  //  worldX = mapX*blockSize;
-  //  worldZ = mapY*blockSize;
-  //  if (pixel4 == black) {
-  //    texturedBox(qblock, worldX, 0, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*2, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*3, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*4, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*5, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*6, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*7, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*8, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*9, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*10, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*11, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*12, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*13, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*14, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*15, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*16, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*17, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*18, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*19, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*20, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*21, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*22, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*23, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*24, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*25, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*26, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*27, worldZ, blockSize/2);
-  //    texturedBox(qblock, worldX, -blockSize*28, worldZ, blockSize/2);
-  //    texturedBox(ynblock, worldX, -blockSize*29, worldZ, blockSize/2);
-  //  }
-  //  mapX++;
-  //  if (mapX > map4.width) {
-  //    mapX = 0;
-  //    mapY++;
-  //  }
-  //}
+  for (int mapX = 0, mapY = 0, worldX = 0, worldZ = 0; mapY < map4.height; ) {
+    color pixel4 = map4.get(mapX, mapY);
+    worldX = mapX*blockSize;
+    worldZ = mapY*blockSize;
+    if (pixel4 == black) {
+      texturedBox(qblock, worldX, 0, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*2, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*3, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*4, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*5, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*6, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*7, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*8, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*9, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*10, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*11, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*12, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*13, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*14, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*15, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*16, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*17, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*18, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*19, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*20, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*21, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*22, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*23, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*24, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*25, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*26, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*27, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*28, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*29, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*30, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*31, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*32, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*33, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*34, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*35, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*36, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*37, worldZ, blockSize/2);
+      texturedBox(qblock, worldX, -blockSize*38, worldZ, blockSize/2);
+      texturedBox(ynblock, worldX, -blockSize*39, worldZ, blockSize/2);
+    }
+    mapX++;
+    if (mapX > map4.width) {
+      mapX = 0;
+      mapY++;
+    }
+  }
+  for (int mapX = 0, mapY = 0, worldX = 0, worldZ = 0; mapY < map5.height; ) {
+    color pixel5 = map5.get(mapX, mapY);
+    worldX = mapX*blockSize;
+    worldZ = mapY*blockSize;
+    if (pixel5 == black) {
+      texturedBox(wblock, worldX, -5000, worldZ, blockSize/2);
+      texturedBox(wblock, worldX, -5000+blockSize, worldZ, blockSize/2);
+      texturedBox(wblock, worldX, -5000+blockSize+blockSize, worldZ, blockSize/2);
+    }
+    mapX++;
+    if (mapX > map5.width) {
+      mapX = 0;
+      mapY++;
+    }
+  }
 }
