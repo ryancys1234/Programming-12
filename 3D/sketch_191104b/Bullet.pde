@@ -48,7 +48,7 @@ void handleBullets() {
   }
 }
 
-class BulletObjects extends GameObjects{
+class BulletObjects extends GameObjects {
   int timerBulletObjects;
 
   BulletObjects(float _x, float _y, float _z, float _vx, float _vy, float _vz) {

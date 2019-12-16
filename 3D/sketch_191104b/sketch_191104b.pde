@@ -3,7 +3,7 @@ boolean up, down, left, right, space, shift, w, a, s, d;
 int blockSize = 20;
 int horizontal = 1;
 
-float lx = 1200, ly = height/2 - 4*blockSize, lz = 500; // Why is it "- 4*blockSize"?
+float lx = 1200, ly = height/2 - 4*blockSize, lz = 500; // It is "- 4*blockSize" because in the 3d world, vertically up is negative y
 float rotx = PI/4, roty = PI/4;
 float horizontalHeadAngle = 0, verticalHeadAngle = 0;
 
@@ -13,7 +13,7 @@ PVector velocity;
 PVector strafeDir = new PVector(10, 0);
 PVector verticalDir = new PVector(0, 0, -10);
 // New PVector that controls left / right (90 degrees to the left or right of the current direction)
-PVector rainVerticalVelocity = new PVector(0, 10);
+PVector rainVerticalVelocity = new PVector(0, 50);
 
 ArrayList<Bullet> bullets;
 ArrayList<Rain> rain;
@@ -89,7 +89,15 @@ void draw() {
   drawMap();
   drawGround();
   handleBullets();
-  rain.add(new Rain(0, -1000, 0, 0, 10, 0));
+  rain.add(new Rain(0, -8000, 0, rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(3000, 4000), -8000, random(3000, 4000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(2000, 3000), -8000, random(2000, 3000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(4000), -8000, random(4000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(1000, 2000), -8000, random(1000, 2000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(2000, 3000), -8000, random(2000, 3000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(1000), -8000, random(1000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(3000, 4000), -8000, random(3000, 4000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(random(1000, 2000), -8000, random(1000, 2000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   handleRain();
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);

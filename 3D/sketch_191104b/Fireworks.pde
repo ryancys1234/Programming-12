@@ -25,5 +25,11 @@ class Fireworks {
   }
 
   void act() {
+    
+    if (y < -5000) {
+      y = y + vy;
+    } else {
+      y = y - vy;
+    }
   }
 }

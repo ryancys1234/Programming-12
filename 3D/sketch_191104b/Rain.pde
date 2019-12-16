@@ -18,8 +18,8 @@ class Rain {
   void show() {
     pushMatrix();
     translate(x, y, z);
-    fill(#FFFFFF);
-    sphere(10);
+    stroke(#FFFFFF);
+    rect(0, 0, 2, 30);
     popMatrix();
   }
 
