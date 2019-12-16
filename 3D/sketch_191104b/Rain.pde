@@ -27,23 +27,22 @@ class Rain {
     x = x + vx;
     y = y + vy;
     z = z + vz;
-    timerRain--;
-    if (timerRain == 0) {
+    if (y > 0) {
       lives = 0;
     }
   }
+}
 
-  void handleRain() {
-    int i = 0;
-    while (i < rain.size()) {
-      Rain rn = rain.get(i);
-      rn.show();
-      rn.act();
-      if (rn.lives == 0) {
-        rain.remove(i);
-      } else {
-        i++;
-      }
+void handleRain() {
+  int i = 0;
+  while (i < rain.size()) {
+    Rain rn = rain.get(i);
+    rn.show();
+    rn.act();
+    if (rn.lives == 0) {
+      rain.remove(i);
+    } else {
+      i++;
     }
   }
 }

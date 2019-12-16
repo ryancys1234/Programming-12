@@ -89,7 +89,8 @@ void draw() {
   drawMap();
   drawGround();
   handleBullets();
-  rain.add(new Rain(0, -1000, 0, rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  rain.add(new Rain(0, -1000, 0, 0, 10, 0));
+  handleRain();
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
 }
