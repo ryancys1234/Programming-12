@@ -1,14 +1,15 @@
 class Rain {
-  float x, y, z, vx, vz;
+  float x, y, z, vx, vy, vz;
   int timerRain;
   int lives;
 
-  Rain(float _x, float _y, float _z) {
+  Rain(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
     y = _y;
     z = _z;
-    //vx = _vx;
-    //vz = _vz;
+    vx = _vx;
+    vy = _vy;
+    vz = _vz;
 
     lives = 1;
     timerRain = 500;
@@ -23,7 +24,9 @@ class Rain {
   }
 
   void act() {
-    y++;
+    x = x + vx;
+    y = y + vy;
+    z = z + vz;
     timerRain--;
     if (timerRain == 0) {
       lives = 0;

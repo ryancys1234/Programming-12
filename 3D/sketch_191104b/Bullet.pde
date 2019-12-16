@@ -18,15 +18,15 @@ class Bullet {
   void show() {
     pushMatrix();
     translate(x, y, z);
-    //lights();
-    fill(#FFFFFF);
+    lights();
+    fill(#2D00FF);
     sphere(10);
     popMatrix();
   }
 
   void act() {
     x = x + vx;
-    y = y + vy;
+    y = y - vy;
     z = z + vz;
     timerBullet--;
     if (timerBullet == 0) {
@@ -36,15 +36,15 @@ class Bullet {
 }
 
 void handleBullets() {
-  int i = 0;
-  while (i < bullets.size()) {
-    Bullet b = bullets.get(i);
-    b.show();
-    b.act();
-    if (b.lives == 0) {
-      bullets.remove(i);
-    } else {
-      i++;
+    int i = 0;
+    while (i < bullets.size()) {
+      Bullet b = bullets.get(i);
+      b.show();
+      b.act();
+      if (b.lives == 0) {
+        bullets.remove(i);
+      } else {
+        i++;
+      }
     }
   }
-}

@@ -1,4 +1,4 @@
-void texturedBox1(PImage tex, float x, float y, float z, float size) {
+void texturedBox(PImage tex, float x, float y, float z, float size) {
   pushMatrix();
   translate(x, y, z);
   scale(size);

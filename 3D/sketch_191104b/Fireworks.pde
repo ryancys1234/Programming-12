@@ -1,13 +1,14 @@
 class Fireworks {
-  float x, y, z, vx, vz;
+  float x, y, z, vx, vy, vz;
   int timerFireworks;
   int lives;
 
-  Fireworks(float _x, float _y, float _z, float _vx, float _vz) {
+  Fireworks(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
     y = _y;
     z = _z;
     vx = _vx;
+    vy = _vy;
     vz = _vz;
 
     lives = 1;
