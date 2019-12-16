@@ -29,6 +29,14 @@ class Rain {
     z = z + vz;
     if (y > 0) {
       lives = 0;
+      //for (float px = x, py = y, pz = z, pvx = -vx, pvy = -vy, pvz = -vz; py > -5; px = px + pvx, py = py - pvy, pz = pz + pvz) {
+      //  pushMatrix();
+      //  translate(px, py, pz);
+      //  stroke(#FFFFFF);
+
+      //  box(3);
+      //  popMatrix();
+      //}
     }
   }
 }
