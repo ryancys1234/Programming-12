@@ -18,7 +18,6 @@ class Fireworks {
   void show() {
     pushMatrix();
     translate(x, y, z);
-    lights();
     fill(#FFFFFF);
     sphere(10);
     popMatrix();

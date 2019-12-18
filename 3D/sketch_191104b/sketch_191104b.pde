@@ -18,7 +18,7 @@ PVector rainVerticalVelocity = new PVector(0, 50);
 ArrayList<Bullet> bullets;
 ArrayList<Rain> rain;
 
-PImage qblock, mblock, wblock, ynblock;
+PImage qblock, mblock, wblock, ynblock, concreteblock, neonblock;
 PImage map1, map2, map3, map4, map5, map6, map7, map8, map9, map10; // Map is 2d
 
 color black = #000000;
@@ -30,11 +30,15 @@ void setup() {
   mblock = loadImage("gold_ore.png");
   wblock = loadImage("whitetex.jpg");
   ynblock = loadImage("yellowneontex.jpg");
+  concreteblock = loadImage("concretetex.png");
+  neonblock = loadImage("neontex.jpg");
   map1 = loadImage("map1.png");
   map2 = loadImage("map2.png");
   map3 = loadImage("map3.png");
   map4 = loadImage("map4.png");
   map5 = loadImage("map5.png");
+  map6 = loadImage("map6.png");
+  map7 = loadImage("map7.png");
   imageMode(CENTER);
   textureMode(NORMAL);
   bullets = new ArrayList<Bullet>(); // Putting a number inside () sets a limit to the number of objects in the array list
@@ -42,7 +46,7 @@ void setup() {
 }
 
 void draw() {
-  background(#010D55);
+  background(#0B0036);
   float dx = lx + horizontalDirection.x;
   float dy = ly + verticalDirection.y;
   float dz = lz + horizontalDirection.y;
@@ -91,16 +95,16 @@ void draw() {
   drawMap();
   drawGround();
   handleBullets();
-  rain.add(new Rain(0, -8000, 0, rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  handleRain();
+  //rain.add(new Rain(0, -8000, 0, rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  //handleRain();
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
 }
