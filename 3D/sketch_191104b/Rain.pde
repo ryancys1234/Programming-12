@@ -1,7 +1,8 @@
-class Rain {
+class Rain extends GameObjects {
   float x, y, z, vx, vy, vz;
   int timerRain;
   int lives;
+  int circleSize;
 
   Rain(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
@@ -29,14 +30,16 @@ class Rain {
     z = z + vz;
     if (y > 0) {
       lives = 0;
-      //for (float px = x, py = y, pz = z, pvx = -vx, pvy = -vy, pvz = -vz; py > -5; px = px + pvx, py = py - pvy, pz = pz + pvz) {
-      //  pushMatrix();
-      //  translate(px, py, pz);
-      //  stroke(#FFFFFF);
-
-      //  box(3);
-      //  popMatrix();
-      //}
+      pushMatrix();
+      translate(x, y, z);
+      stroke(255);
+      ellipse(0, 0, circleSize, circleSize);
+      popMatrix();
+      if (circleSize == 20) {
+        circleSize = 0;
+      } else {
+        circleSize++;
+      }
     }
   }
 }
@@ -54,3 +57,30 @@ void handleRain() {
     }
   }
 }
+
+//class Ellipse1 extends GameObjects {
+//  int lives;
+
+//  Ellipse1(int _x, int _y, int _z, int circleSize, int circleSize) {
+//  }
+
+//  void show() {
+//  }
+
+//  void act() {
+//  }
+//}
+
+//void handleEllipse1() {
+//  int i = 0;
+//  while (i < ellipse1.size()) {
+//    Ellipse1 el = ellipse1.get(i);
+//    el.show();
+//    el.act();
+//    if (el.lives == 0) {
+//      ellipse1.remove(i);
+//    } else {
+//      i++;
+//    }
+//  }
+//}

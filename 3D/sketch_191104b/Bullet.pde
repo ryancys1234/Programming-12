@@ -68,6 +68,7 @@ class BulletObjects extends GameObjects {
     translate(x, y, z);
     fill(#47FF00);
     box(5);
+    noFill();
     popMatrix();
   }
 

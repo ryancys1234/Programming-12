@@ -1,4 +1,4 @@
-class Fireworks {
+class Fireworks extends GameObjects {
   float x, y, z, vx, vy, vz;
   int timerFireworks;
   int lives;
@@ -18,6 +18,7 @@ class Fireworks {
   void show() {
     pushMatrix();
     translate(x, y, z);
+    lights();
     fill(#FFFFFF);
     sphere(10);
     popMatrix();
