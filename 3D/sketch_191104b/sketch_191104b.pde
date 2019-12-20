@@ -17,7 +17,7 @@ PVector rainVerticalVelocity = new PVector(0, 50);
 
 ArrayList<Bullet> bullets;
 ArrayList<Rain> rain;
-//ArrayList<Ellipse1> ellipse1;
+ArrayList<Fireworks> fireworks;
 ArrayList<GameObjects> GameObject;
 
 PImage qblock, mblock, wblock, ynblock, concreteblock, neonblock;
@@ -45,7 +45,7 @@ void setup() {
   textureMode(NORMAL);
   bullets = new ArrayList<Bullet>(); // Putting a number inside () sets a limit to the number of objects in the array list
   rain = new ArrayList<Rain>();
-  //ellipse1 = new ArrayList<Ellipse1>();
+  fireworks = new ArrayList<Fireworks>();
   GameObject = new ArrayList<GameObjects>();
 }
 
@@ -99,9 +99,6 @@ void draw() {
   drawMap();
   drawGround();
   handleBullets();
-  rain.add(new Rain(0, -8000, 0, rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
@@ -109,7 +106,8 @@ void draw() {
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   handleRain();
-  //handleEllipse1();
+  fireworks.add(new Fireworks(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  fireworks.add(new Fireworks(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
 }

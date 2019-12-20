@@ -1,6 +1,6 @@
-class Bullet extends GameObjects{
+class Bullet extends GameObjects {
   int timerBullet;
-  int lives;
+  float parX, parY, parZ;
 
   Bullet(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
@@ -12,12 +12,14 @@ class Bullet extends GameObjects{
 
     lives = 1;
     timerBullet = 100;
+    parX = x;
+    parY = y;
+    parZ = z;
   }
 
   void show() {
     pushMatrix();
-    translate(x, y, z);
-    lights();
+    translate(x, y, z); 
     fill(#2D00FF);
     sphere(10);
     popMatrix();
@@ -28,6 +30,19 @@ class Bullet extends GameObjects{
     y = y - vy;
     z = z + vz;
     timerBullet--;
+
+    parX = x + random(50);
+    parY = y - random(50);
+    parZ = z + random(50);
+
+    pushMatrix();
+    translate(parX, parY, parZ);
+    rotateX(random(PI));
+    rotateY(random(PI));
+    rotateZ(random(PI));
+    fill(#3AFF00);
+    box(5);
+    popMatrix();
     if (timerBullet == 0) {
       lives = 0;
     }
@@ -48,10 +63,10 @@ void handleBullets() {
   }
 }
 
-class BulletObjects extends GameObjects {
+class BulletParticles extends GameObjects {
   int timerBulletObjects;
 
-  BulletObjects(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
+  BulletParticles(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
     y = _y;
     z = _z;
@@ -68,7 +83,6 @@ class BulletObjects extends GameObjects {
     translate(x, y, z);
     fill(#47FF00);
     box(5);
-    noFill();
     popMatrix();
   }
 

@@ -1,7 +1,7 @@
 abstract class GameObjects {
+  float x, y, z, vx, vy, vz; 
   int lives;
   int size;
-  float x, y, z, vx, vy, vz;
 
   GameObjects() {
   }

@@ -1,7 +1,5 @@
 class Fireworks extends GameObjects {
-  float x, y, z, vx, vy, vz;
   int timerFireworks;
-  int lives;
 
   Fireworks(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
@@ -18,14 +16,12 @@ class Fireworks extends GameObjects {
   void show() {
     pushMatrix();
     translate(x, y, z);
-    lights();
     fill(#FFFFFF);
     sphere(10);
     popMatrix();
   }
 
   void act() {
-    
     if (y < -5000) {
       y = y + vy;
     } else {
