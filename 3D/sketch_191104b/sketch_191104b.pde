@@ -10,10 +10,12 @@ float horizontalHeadAngle = 0, verticalHeadAngle = 0;
 PVector horizontalDirection = new PVector(0, -10);
 PVector verticalDirection = new PVector(10, 0);
 PVector velocity;
+PVector gravity = new PVector(0, 0.981);
 PVector strafeDir = new PVector(10, 0);
 PVector verticalDir = new PVector(0, 0, -10);
 // New PVector that controls left / right (90 degrees to the left or right of the current direction)
 PVector rainVerticalVelocity = new PVector(0, 50);
+PVector fireworksVelocity = new PVector(random(-10, 10), 5, random(-10, 10));
 
 ArrayList<Bullet> bullets;
 ArrayList<Rain> rain;
@@ -45,7 +47,7 @@ void setup() {
   textureMode(NORMAL);
   bullets = new ArrayList<Bullet>(); // Putting a number inside () sets a limit to the number of objects in the array list
   rain = new ArrayList<Rain>();
-  fireworks = new ArrayList<Fireworks>();
+  fireworks = new ArrayList<Fireworks>(50);
   GameObject = new ArrayList<GameObjects>();
 }
 
@@ -104,10 +106,9 @@ void draw() {
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  rain.add(new Rain(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
   handleRain();
-  fireworks.add(new Fireworks(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
-  fireworks.add(new Fireworks(random(6000), -5000, random(6000), rainVerticalVelocity.x, rainVerticalVelocity.y, 0));
+  fireworks.add(new Fireworks(2000, -5000, 2000));
+  handleFireworks();
   //popMatrix();
   //texturedBox(qblock, width/2, height/2, 0, blockSize);
 }

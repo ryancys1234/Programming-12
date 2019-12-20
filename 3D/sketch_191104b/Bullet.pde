@@ -19,7 +19,7 @@ class Bullet extends GameObjects {
 
   void show() {
     pushMatrix();
-    translate(x, y, z); 
+    translate(x, y, z);
     fill(#2D00FF);
     sphere(10);
     popMatrix();
@@ -43,6 +43,7 @@ class Bullet extends GameObjects {
     fill(#3AFF00);
     box(5);
     popMatrix();
+
     if (timerBullet == 0) {
       lives = 0;
     }
@@ -63,16 +64,13 @@ void handleBullets() {
   }
 }
 
-class BulletParticles extends GameObjects {
+class BulletObjects extends GameObjects {
   int timerBulletObjects;
 
-  BulletParticles(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
+  BulletObjects(float _x, float _y, float _z) {
     x = _x;
     y = _y;
     z = _z;
-    vx = _vx;
-    vy = _vy;
-    vz = _vz;
 
     lives = 1;
     timerBulletObjects = 100;
@@ -83,6 +81,7 @@ class BulletParticles extends GameObjects {
     translate(x, y, z);
     fill(#47FF00);
     box(5);
+    noFill();
     popMatrix();
   }
 
@@ -90,6 +89,12 @@ class BulletParticles extends GameObjects {
     x = x + vx;
     y = y - vy;
     z = z + vz;
+    pushMatrix();
+    translate(x, y, z);
+    rotateX(PI/2);
+    stroke(255);
+    noFill();
+    popMatrix();
     timerBulletObjects--;
     if (timerBulletObjects == 0) {
       lives = 0;

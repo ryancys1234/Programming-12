@@ -1,7 +1,6 @@
 class Rain extends GameObjects {
   int timerRain;
   int circleSize;
-  int var1;
 
   Rain(float _x, float _y, float _z, float _vx, float _vy, float _vz) {
     x = _x;
@@ -28,20 +27,16 @@ class Rain extends GameObjects {
     x = x + vx;
     y = y + vy;
     z = z + vz;
+    circleSize++;
     if (y > 0) {
       lives = 0;
       pushMatrix();
       translate(x, y, z);
       rotateX(PI/2);
       stroke(255);
+      noFill();
       ellipse(0, 0, circleSize, circleSize);
-      var1 = 1;
       popMatrix();
-    }
-    if (var1 == 1) {
-      circleSize++;
-    } else if (circleSize == 50) {
-      circleSize = circleSize * 0;
     }
   }
 }
