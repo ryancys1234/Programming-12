@@ -4,8 +4,9 @@ FWorld world;
 
 boolean leftupkey, leftdownkey, leftleftkey, leftrightkey, rightupkey, rightdownkey, rightleftkey, rightrightkey;
 boolean leftCanJump = true, rightCanJump = true;
-FCircle leftBlob, rightBlob;
-FPoly ground;
+FPoly lground, rground, courtDivider;
+FBox wall1, wall2, wall3;
+FCircle leftBlob, rightBlob, volleyball;
 
 ArrayList lcontact, rcontact;
 
@@ -16,182 +17,190 @@ void setup() {
   world = new FWorld();
   world.setGravity(0, 800);
 
-  ground();
+  lground();
+  rground();
   courtDivider();
   leftBlob();
   rightBlob();
+  wall1();
+  wall2();
+  wall3();
+  volleyball();
+}
+
+void draw() {
+  background(#5CC5FC);
+
+  world.step();
+  world.draw();
   lPlayerControl();
   rPlayerControl();
 }
 
-void draw() {
-  background(#7ABDE8);
+void lground() {
+  lground = new FPoly();
 
-  world.step();
-  world.draw();
+  lground.vertex(-100, height*0.75);
+  lground.vertex(-100, height+100);
+  lground.vertex(width/2, height+100);
+  lground.vertex(width/2, height*0.75);
+
+  lground.setStatic(true);
+  lground.setFill(102, 183, 91);
+  lground.setFriction(0);
+
+  world.add(lground);
 }
 
-void ground() {
-  FPoly box = new FPoly();
+void rground() {
+  rground = new FPoly();
 
-  box.vertex(-100, height*0.75);
-  box.vertex(-100, height+100);
-  box.vertex(width+100, height+100);
-  box.vertex(width+100, height*0.75);
+  rground.vertex(width/2, height*0.75);
+  rground.vertex(width/2, height+100);
+  rground.vertex(width+100, height+100);
+  rground.vertex(width+100, height*0.75);
 
-  box.setStatic(true);
-  box.setFill(102, 183, 91);
-  box.setFriction(0.5);
+  rground.setStatic(true);
+  rground.setFill(102, 183, 91);
+  rground.setFriction(0);
 
-  world.add(box);
+  world.add(rground);
 }
 
 void courtDivider() {
-  FPoly div = new FPoly();
+  courtDivider = new FPoly();
 
-  div.vertex(width/2-5, height*0.75-50);
-  div.vertex(width/2+5, height*0.75-50);
-  div.vertex(width/2+5, height*0.75);
-  div.vertex(width/2-5, height*0.75);
+  courtDivider.vertex(width/2-5, height*0.75-50);
+  courtDivider.vertex(width/2+5, height*0.75-50);
+  courtDivider.vertex(width/2+5, height*0.75);
+  courtDivider.vertex(width/2-5, height*0.75);
 
-  div.setStatic(true);
-  div.setFill(255);
-  div.setFriction(0.5);
+  courtDivider.setStatic(true);
+  courtDivider.setFill(255);
+  courtDivider.setFriction(0.5);
 
-  world.add(div);
+  world.add(courtDivider);
 }
 
 void wall1() {
-  FPoly w1 = new FPoly();
+  wall1 = new FBox(500, height);
 
-  w1.vertex(0, -100);
-  w1.vertex(0, height+100);
-  w1.vertex(-50, height+100);
-  w1.vertex(-50, -100);
+  wall1.setPosition(-250, height/2);
 
-  w1.setStatic(true);
-  w1.setFill(255);
-  w1.setFriction(0.5);
+  wall1.setStatic(true);
+  wall1.setFill(0);
+  wall1.setFriction(0);
 
-  world.add(w1);
+  world.add(wall1);
 }
 
 void wall2() {
-  FPoly w2 = new FPoly();
+  wall2 = new FBox(width, 500);
 
-  w2.vertex(-100, 0);
-  w2.vertex(-100, -50);
-  w2.vertex(width+100, -50);
-  w2.vertex(width+100, 0);
+  wall2.setPosition(width/2, -250);
 
-  w2.setStatic(true);
-  w2.setFill(255);
-  w2.setFriction(0.5);
+  wall2.setStatic(true);
+  wall2.setFill(0);
+  wall2.setFriction(0);
 
-  world.add(w2);
+  world.add(wall2);
 }
 
 void wall3() {
-  FPoly w3 = new FPoly();
+  wall3 = new FBox(500, height);
 
-  w3.vertex(0, -100);
-  w3.vertex(0, height+100);
-  w3.vertex(width+50, height+100);
-  w3.vertex(width+50, -100);
+  wall3.setPosition(width+250, height/2);
 
-  w3.setStatic(true);
-  w3.setFill(255);
-  w3.setFriction(0.5);
+  wall3.setStatic(true);
+  wall3.setFill(0);
+  wall3.setFriction(0.5);
 
-  world.add(w3);
+  world.add(wall3);
 }
 
 void leftBlob() {
-  FCircle c1 = new FCircle(50);
-  c1.setPosition(width*0.25, height*0.75-30);
+  leftBlob = new FCircle(50);
+  leftBlob.setPosition(width*0.25, height*0.75-30);
 
-  c1.setStroke(0);
-  c1.setStrokeWeight(1);
-  c1.setFill(0);
+  leftBlob.setStroke(0);
+  leftBlob.setStrokeWeight(1);
+  leftBlob.setFill(#5D43D6);
 
-  c1.setDensity(1);
-  c1.setFriction(1);
-  c1.setRestitution(1);
+  leftBlob.setDensity(1);
+  leftBlob.setFriction(1);
+  leftBlob.setRestitution(1);
 
-  world.add(c1);
+  world.add(leftBlob);
 }
 
 void rightBlob() {
-  FCircle c2 = new FCircle(50);
-  c2.setPosition(width*0.75, height*0.75-30);
+  rightBlob = new FCircle(50);
+  rightBlob.setPosition(width*0.75, height*0.75-30);
 
-  c2.setStroke(0);
-  c2.setStrokeWeight(1);
-  c2.setFill(0);
+  rightBlob.setStroke(0);
+  rightBlob.setStrokeWeight(1);
+  rightBlob.setFill(#CE3030);
 
-  c2.setDensity(1);
-  c2.setFriction(1);
-  c2.setRestitution(1);
+  rightBlob.setDensity(1);
+  rightBlob.setFriction(1);
+  rightBlob.setRestitution(1);
 
-  world.add(c2);
+  world.add(rightBlob);
 }
 
 void lPlayerControl() {
   leftCanJump = false;
   ArrayList<FContact> lcontacts = leftBlob.getContacts();
-  
+
   //int i = 0; //i stands for index
   //while (i < lcontacts.size) {
   //  Contact lc = lcontacts.get(i);
   //  if (c.contains(ground)) leftCanJump = true;
   //  i++;
   //}
-  
-  for (FContact c : lcontacts) { // Assumes the list is not going to change;
-    if (c.contains(ground)) leftCanJump = true;
+
+  for (FContact c : lcontacts) { // Assumes the list is not going to change.
+    if (c.contains(lground)) leftCanJump = true;
   }
-  
+
   if (leftupkey && leftCanJump) {
-    leftBlob.addImpulse(0, -5000);
+    leftBlob.addImpulse(0, -300);
   }
-  if (leftdownkey) {
-    leftBlob.addImpulse(0, 5000);
+  if (leftdownkey && leftCanJump) {
+    leftBlob.addImpulse(0, 300);
   }
-  if (leftrightkey) {
-    leftBlob.addImpulse(500, 0);
+  if (leftrightkey && leftCanJump) {
+    leftBlob.addImpulse(300, 0);
   }
-  if (leftleftkey) {
-    leftBlob.addImpulse(-500, 0);
+  if (leftleftkey && leftCanJump) {
+    leftBlob.addImpulse(-300, 0);
   }
 }
 
 void rPlayerControl() {
   rightCanJump = false;
   ArrayList<FContact> rcontacts = rightBlob.getContacts();
-  
-  //int i = 0; //i stands for index
-  //while (i < lcontacts.size) {
-  //  Contact lc = lcontacts.get(i);
-  //  if (c.contains(ground)) leftCanJump = true;
-  //  i++;
-  //}
-  
-  for (FContact c : rcontacts) { // Assumes the list is not going to change;
-    if (c.contains(ground)) rightCanJump = true;
+
+  for (FContact c : rcontacts) {
+    if (c.contains(rground)) rightCanJump = true;
   }
-  
+
   if (rightupkey && rightCanJump) {
-    rightBlob.addImpulse(0, -5000);
+    rightBlob.addImpulse(0, -300);
   }
-  if (rightdownkey) {
-    rightBlob.addImpulse(0, 5000);
+  if (rightdownkey && rightCanJump) {
+    rightBlob.addImpulse(0, 300);
   }
-  if (rightrightkey) {
-    rightBlob.addImpulse(500, 0);
+  if (rightrightkey && rightCanJump) {
+    rightBlob.addImpulse(300, 0);
   }
-  if (rightleftkey) {
-    rightBlob.addImpulse(-500, 0);
+  if (rightleftkey && rightCanJump) {
+    rightBlob.addImpulse(-300, 0);
   }
+}
+
+void volleyball() {
+  
 }
 
 void keyPressed() {
