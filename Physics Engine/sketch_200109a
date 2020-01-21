@@ -4,11 +4,18 @@ FWorld world;
 
 boolean leftupkey, leftdownkey, leftleftkey, leftrightkey, rightupkey, rightdownkey, rightleftkey, rightrightkey;
 boolean leftCanJump = true, rightCanJump = true;
+
+int rightScore = 0, leftScore = 0;
+int betweenGamesTime = 0;
+
 FPoly lground, rground, courtDivider;
 FBox wall1, wall2, wall3;
 FCircle leftBlob, rightBlob, volleyball;
 
-ArrayList lcontacts, rcontacts, vcontact;
+PImage b1, b2, b3, b4, b5, b6, b7, bv;
+
+ArrayList lcontacts, rcontacts, vcontacts;
+String[] wallpapers = {"a", "b", "c", "d", "e", "f", "g"};
 
 void setup() {
   size(1000, 800);
@@ -16,7 +23,17 @@ void setup() {
   Fisica.init(this);
   world = new FWorld();
   world.setGravity(0, 800);
-
+  
+  b1 = loadImage("74-745287_width-desktop-background-material-design.jpg");
+  b2 = loadImage("calendar-april.jpg");
+  b3 = loadImage("calendar-august.jpg");
+  b4 = loadImage("calendar-december.jpg");
+  b5 = loadImage("calendar-june.jpg");
+  b6 = loadImage("calendar-march.jpg");
+  b7 = loadImage("calendar-september.jpg");
+  bv = loadImage("Volleyball.png");
+  bv.resize(25, 25);
+  
   lground();
   rground();
   courtDivider();
@@ -29,13 +46,17 @@ void setup() {
 }
 
 void draw() {
-  background(#5CC5FC);
+  background(random(wallpapers.length));
 
   world.step();
   world.draw();
   lPlayerControl();
   rPlayerControl();
   volleyballControl();
+  
+  textSize(25);
+  text("Score: " + rightScore, width*0.90, height*0.10);
+  text("Score: " + leftScore, width*0.10, height*0.10);
 }
 
 void lground() {
@@ -165,16 +186,19 @@ void lPlayerControl() {
   }
 
   if (leftupkey && leftCanJump) {
-    leftBlob.addImpulse(0, -700);
+    leftBlob.addImpulse(0, -1400);
   }
-  if (leftdownkey && leftCanJump) {
-    leftBlob.addImpulse(0, 300);
+  if (leftdownkey) {
+    leftBlob.addImpulse(0, 700);
   }
   if (leftrightkey && leftCanJump) {
     leftBlob.addImpulse(300, 0);
   }
   if (leftleftkey && leftCanJump) {
     leftBlob.addImpulse(-300, 0);
+  }
+  if (leftBlob.getX() >= width/2) {
+    leftBlob.setPosition(width/2, leftBlob.getY());
   }
 }
 
@@ -187,10 +211,10 @@ void rPlayerControl() {
   }
 
   if (rightupkey && rightCanJump) {
-    rightBlob.addImpulse(0, -700);
+    rightBlob.addImpulse(0, -1400);
   }
-  if (rightdownkey && rightCanJump) {
-    rightBlob.addImpulse(0, 300);
+  if (rightdownkey) {
+    rightBlob.addImpulse(0, 700);
   }
   if (rightrightkey && rightCanJump) {
     rightBlob.addImpulse(300, 0);
@@ -198,10 +222,14 @@ void rPlayerControl() {
   if (rightleftkey && rightCanJump) {
     rightBlob.addImpulse(-300, 0);
   }
+  if (rightBlob.getX() <= width/2) {
+    rightBlob.setPosition(width/2, rightBlob.getY());
+  }
 }
 
 void volleyball() {
   volleyball = new FCircle(10);
+  volleyball.attachImage(bv);
   volleyball.setPosition(width*0.75, height/2);
 
   volleyball.setStroke(0);
@@ -216,7 +244,43 @@ void volleyball() {
 }
 
 void volleyballControl() {
+  ArrayList<FContact> vcontacts = volleyball.getContacts();
   
+  for (FContact v : vcontacts) {
+    if (v.contains(rground)) {
+      leftScore++;
+      //betweenGamesTime++;
+      //if (betweenGamesTime == 1) {
+        leftBlob.setPosition(width*0.25, height*0.75-30);
+        leftBlob.setVelocity(0, 0);
+        leftBlob.setForce(0, 0);
+        rightBlob.setPosition(width*0.75, height*0.75-30);
+        rightBlob.setVelocity(0, 0);
+        rightBlob.setForce(0, 0);
+        volleyball.setPosition(width*0.25, height/2);
+        volleyball.setVelocity(0, 0);
+        volleyball.setForce(0, 0);
+      //}
+    }
+  }
+  
+  for (FContact v : vcontacts) {
+    if (v.contains(lground)) {
+      rightScore++;
+      //betweenGamesTime++;
+      //if (betweenGamesTime == 1) {
+        leftBlob.setPosition(width*0.25, height*0.75-30);
+        leftBlob.setVelocity(0, 0);
+        leftBlob.setForce(0, 0);
+        rightBlob.setPosition(width*0.75, height*0.75-30);
+        rightBlob.setVelocity(0, 0);
+        rightBlob.setForce(0, 0);
+        volleyball.setPosition(width*0.75, height/2);
+        volleyball.setVelocity(0, 0);
+        volleyball.setForce(0, 0);
+      //}
+    }
+  }
 }
 
 void keyPressed() {
