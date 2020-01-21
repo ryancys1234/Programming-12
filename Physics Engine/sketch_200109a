@@ -8,7 +8,7 @@ FPoly lground, rground, courtDivider;
 FBox wall1, wall2, wall3;
 FCircle leftBlob, rightBlob, volleyball;
 
-ArrayList lcontact, rcontact;
+ArrayList lcontacts, rcontacts, vcontact;
 
 void setup() {
   size(1000, 800);
@@ -35,6 +35,7 @@ void draw() {
   world.draw();
   lPlayerControl();
   rPlayerControl();
+  volleyballControl();
 }
 
 void lground() {
@@ -124,11 +125,11 @@ void leftBlob() {
 
   leftBlob.setStroke(0);
   leftBlob.setStrokeWeight(1);
-  leftBlob.setFill(#5D43D6);
+  leftBlob.setFill(93, 67, 214);
 
   leftBlob.setDensity(1);
   leftBlob.setFriction(1);
-  leftBlob.setRestitution(1);
+  leftBlob.setRestitution(0);
 
   world.add(leftBlob);
 }
@@ -139,11 +140,11 @@ void rightBlob() {
 
   rightBlob.setStroke(0);
   rightBlob.setStrokeWeight(1);
-  rightBlob.setFill(#CE3030);
+  rightBlob.setFill(206, 48, 48);
 
   rightBlob.setDensity(1);
   rightBlob.setFriction(1);
-  rightBlob.setRestitution(1);
+  rightBlob.setRestitution(0);
 
   world.add(rightBlob);
 }
@@ -164,7 +165,7 @@ void lPlayerControl() {
   }
 
   if (leftupkey && leftCanJump) {
-    leftBlob.addImpulse(0, -300);
+    leftBlob.addImpulse(0, -700);
   }
   if (leftdownkey && leftCanJump) {
     leftBlob.addImpulse(0, 300);
@@ -186,7 +187,7 @@ void rPlayerControl() {
   }
 
   if (rightupkey && rightCanJump) {
-    rightBlob.addImpulse(0, -300);
+    rightBlob.addImpulse(0, -700);
   }
   if (rightdownkey && rightCanJump) {
     rightBlob.addImpulse(0, 300);
@@ -200,6 +201,21 @@ void rPlayerControl() {
 }
 
 void volleyball() {
+  volleyball = new FCircle(10);
+  volleyball.setPosition(width*0.75, height/2);
+
+  volleyball.setStroke(0);
+  volleyball.setStrokeWeight(1);
+  volleyball.setFill(152, 250, 73);
+
+  volleyball.setDensity(1);
+  volleyball.setFriction(0);
+  volleyball.setRestitution(1);
+
+  world.add(volleyball);
+}
+
+void volleyballControl() {
   
 }
 
