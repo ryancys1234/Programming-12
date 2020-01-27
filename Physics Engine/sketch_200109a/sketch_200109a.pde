@@ -5,6 +5,11 @@ import fisica.*;
 
 FWorld world;
 
+int mode = 0;
+final int game = 0;
+final int gameOverLeft = 1;
+final int gameOverRight = 2;
+
 boolean leftupkey, leftdownkey, leftleftkey, leftrightkey, rightupkey, rightdownkey, rightleftkey, rightrightkey;
 boolean leftCanJump = true, rightCanJump = true;
 boolean leftPlayerWins = false, rightPlayerWins = false;
@@ -83,26 +88,34 @@ void draw() {
     autumnTheme();
   }
 
+  if (mode == game) {
+    game();
+  } else if (mode == gameOverLeft) {
+    leftWins();
+    mouseReleased();
+  } else if (mode == gameOverRight) {
+    rightWins();
+    mouseReleased();
+  }
+
   world.step();
   world.draw();
   lPlayerControl();
   rPlayerControl();
   volleyballControl();
-  
+
   textSize(25);
   fill(0);
   text("Score: " + rightScore, width*0.80, height*0.10);
   text("Score: " + leftScore, width*0.10, height*0.10);
-  
+
   if (leftScore == 3 && rightPlayerWins == false) {
-    leftWins();
-    leftWinsMouseReleased();
+    mode = 1;
     leftPlayerWins = true;
   }
-  
+
   if (rightScore == 3 && leftPlayerWins == false) {
-    rightWins();
-    rightWinsMouseReleased();
+    mode = 2;
     rightPlayerWins = true;
   }
 }
@@ -287,7 +300,7 @@ void volleyball() {
   } else if (vXNum == 1) {
     vXNum = 750;
   }
-  
+
   volleyball = new FCircle(20);
   volleyball.attachImage(bv);
   volleyball.setPosition(vXNum, height/2 - 100);
@@ -357,28 +370,28 @@ void scores() { //once a player wins, all of the scoring circles fall off and ex
   rscore1.setPosition (800, height/8);
   rscore2.setPosition (850, height/8);
   rscore3.setPosition (900, height/8);
-  
+
   lscore1.setStatic(true);
   lscore2.setStatic(true);
   lscore3.setStatic(true);
   rscore1.setStatic(true);
   rscore2.setStatic(true);
   rscore3.setStatic(true);
-  
+
   lscore1.setStroke(0);
   lscore2.setStroke(0);
   lscore3.setStroke(0);
   rscore1.setStroke(0);
   rscore2.setStroke(0);
   rscore3.setStroke(0);
-  
+
   lscore1.setStrokeWeight(2);
   lscore2.setStrokeWeight(2);
   lscore3.setStrokeWeight(2);
   rscore1.setStrokeWeight(2);
   rscore2.setStrokeWeight(2);
   rscore3.setStrokeWeight(2);
-  
+
   lscore1.setFill(71, 255, 0);
   lscore2.setFill(71, 255, 0);
   lscore3.setFill(71, 255, 0);
@@ -392,14 +405,14 @@ void scores() { //once a player wins, all of the scoring circles fall off and ex
   rscore1.setDensity(1);
   rscore2.setDensity(1);
   rscore3.setDensity(1);
-  
+
   lscore1.setFriction(1);
   lscore2.setFriction(1);
   lscore3.setFriction(1);
   rscore1.setFriction(1);
   rscore2.setFriction(1);
   rscore3.setFriction(1);
-  
+
   lscore1.setRestitution(0);
   lscore2.setRestitution(0);
   lscore3.setRestitution(0);
@@ -417,7 +430,7 @@ void scores() { //once a player wins, all of the scoring circles fall off and ex
     rscore2.setStatic(false);
     rscore1.setStatic(false);
   }
-  
+
   if (leftScore == 1) {
     lscore3.setFill(93, 67, 214);
   } else if (leftScore == 2) {
