@@ -96,11 +96,13 @@ void draw() {
   
   if (leftScore == 3 && rightPlayerWins == false) {
     leftWins();
+    leftWinsMouseReleased();
     leftPlayerWins = true;
   }
   
   if (rightScore == 3 && leftPlayerWins == false) {
     rightWins();
+    rightWinsMouseReleased();
     rightPlayerWins = true;
   }
 }
