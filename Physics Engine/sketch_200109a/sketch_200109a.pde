@@ -28,6 +28,7 @@ ArrayList lcontacts, rcontacts, vcontacts;
 
 void setup() {
   size(1000, 800);
+  mode = 0;
 
   Fisica.init(this);
   world = new FWorld();
@@ -65,6 +66,7 @@ void setup() {
 }
 
 void draw() {
+
   if (wallpaperVar == 0) {
     background(b1);
     mountainTheme();
@@ -88,18 +90,19 @@ void draw() {
     autumnTheme();
   }
 
-  if (mode == game) {
+  if (mode == 0) {
     game();
-  } else if (mode == gameOverLeft) {
+  } else if (mode == 1) {
     leftWins();
-    mouseReleased();
-  } else if (mode == gameOverRight) {
+    leftMouseReleased();
+  } else if (mode == 2) {
     rightWins();
-    mouseReleased();
+    rightMouseReleased();
   }
 
   world.step();
   world.draw();
+
   lPlayerControl();
   rPlayerControl();
   volleyballControl();
@@ -470,4 +473,12 @@ void keyReleased() {
   if (keyCode == 'S' || keyCode == 's') leftdownkey = false;
   if (keyCode == 'A' || keyCode == 'a') leftleftkey = false;
   if (keyCode == 'D' || keyCode == 'd') leftrightkey = false;
+}
+
+void mouseReleased() {
+  if (mode == 1) {
+    leftMouseReleased();
+  } else if (mode == 2) {
+    rightMouseReleased();
+  }
 }

@@ -33,6 +33,11 @@ void leftWins() {
   textAlign(CENTER);
 }
 
+void leftMouseReleased() {
+  mode = 1;
+  setup();
+}
+
 void rightWins() {
   background(255);
   textSize(100);
@@ -43,8 +48,7 @@ void rightWins() {
   textAlign(CENTER);
 }
 
-void mouseReleased() {
-  if (dist(width/2, height/2, mouseX, mouseY) <= 1000) {
-    game();
-  }
+void rightMouseReleased() {
+  mode = 1;
+  setup();
 }
