@@ -5,6 +5,8 @@ color yellow = #5CFC08;
 color blue = #1708FC;
 color green = #1BCB69;
 color red = #F22027;
+color grey = #2B99A2;
+color brown = #5d8256;
 
 boolean up, down, left, right, w, a, s, d;
 
@@ -19,7 +21,7 @@ void setup() {
   Fisica.init(this);
   world = new FWorld();
 
-  map = loadImage("map1.png");
+  map = loadImage("Map1.png");
 
   while (y < map.height) {
     color c = map.get(x, y);
@@ -32,6 +34,30 @@ void setup() {
       bl.setStatic(true);
 
       world.add(bl);
+    }
+    
+    if (c == yellow) {
+      
+    }
+    
+    if (c == blue) {
+      
+    }
+    
+    if (c == green) {
+      
+    }
+    
+    if (c == red) {
+      
+    }
+    
+    if (c == grey) {
+      
+    }
+    
+    if (c == brown) {
+      
     }
 
     x++; // Moves horizontally
