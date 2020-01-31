@@ -1,1 +1,1 @@
-stuff
+This unit of Programming 12 is centered on a particular physics engine, Fisica by Richard Marxer (http://www.ricardmarxer.com/fisica/). As with other files of this account, feel free to learn from the sketches and apply them to your own projects. Have fun!
