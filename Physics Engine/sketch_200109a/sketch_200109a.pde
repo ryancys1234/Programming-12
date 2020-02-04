@@ -14,7 +14,8 @@ boolean leftupkey, leftdownkey, leftleftkey, leftrightkey, rightupkey, rightdown
 boolean leftCanJump = true, rightCanJump = true;
 boolean leftPlayerWins = false, rightPlayerWins = false;
 
-int rightScore = 0, leftScore = 0;
+int rightScore = 0;
+int leftScore = 0;
 int betweenGamesTime = 0;
 
 FPoly lground, rground, courtDivider;
@@ -33,7 +34,7 @@ void setup() {
   Fisica.init(this);
   world = new FWorld();
   world.setGravity(0, 800);
-
+  
   b1 = loadImage("74-745287_width-desktop-background-material-design.jpg");
   b1.resize(1000, 800);
   b2 = loadImage("calendar-april.jpg");
@@ -50,80 +51,10 @@ void setup() {
   b7.resize(1000, 800);
   bv = loadImage("Volleyball.png");
   bv.resize(20, 20);
-
+  
   wallpaperVar = (int) random(0, 7);
-
-  lground();
-  rground();
-  courtDivider();
-  leftBlob();
-  rightBlob();
-  wall1();
-  wall2();
-  wall3();
-  volleyball();
-  scores();
-}
-
-void draw() {
-
-  if (wallpaperVar == 0) {
-    background(b1);
-    mountainTheme();
-  } else if (wallpaperVar == 1) {
-    background(b2);
-    forestTheme();
-  } else if (wallpaperVar == 2) {
-    background(b3);
-    mountainSeaTheme();
-  } else if (wallpaperVar == 3) {
-    background(b4);
-    snowTheme();
-  } else if (wallpaperVar == 4) {
-    background(b5);
-    poolTheme();
-  } else if (wallpaperVar == 5) {
-    background(b6);
-    greenValleyTheme();
-  } else if (wallpaperVar == 6) {
-    background(b7);
-    autumnTheme();
-  }
-
-  if (mode == 0) {
-    game();
-  } else if (mode == 1) {
-    leftWins();
-    leftMouseReleased();
-  } else if (mode == 2) {
-    rightWins();
-    rightMouseReleased();
-  }
-
-  world.step();
-  world.draw();
-
-  lPlayerControl();
-  rPlayerControl();
-  volleyballControl();
-
-  textSize(25);
-  fill(0);
-  text("Score: " + rightScore, width*0.80, height*0.10);
-  text("Score: " + leftScore, width*0.10, height*0.10);
-
-  if (leftScore == 3 && rightPlayerWins == false) {
-    mode = 1;
-    leftPlayerWins = true;
-  }
-
-  if (rightScore == 3 && leftPlayerWins == false) {
-    mode = 2;
-    rightPlayerWins = true;
-  }
-}
-
-void lground() {
+  
+  // Left ground ================================================================
   lground = new FPoly();
 
   lground.vertex(-100, height*0.75);
@@ -137,11 +68,10 @@ void lground() {
   lground.setNoStroke();
 
   world.add(lground);
-}
 
-void rground() {
+  // Right ground ================================================================
   rground = new FPoly();
-
+  
   rground.vertex(width/2, height*0.75);
   rground.vertex(width/2, height+100);
   rground.vertex(width+100, height+100);
@@ -153,9 +83,8 @@ void rground() {
   rground.setNoStroke();
 
   world.add(rground);
-}
 
-void courtDivider() {
+  // Court divider ================================================================
   courtDivider = new FPoly();
 
   courtDivider.vertex(width/2-5, height*0.75-50);
@@ -169,9 +98,8 @@ void courtDivider() {
   courtDivider.setNoStroke();
 
   world.add(courtDivider);
-}
 
-void wall1() {
+  // Left wall (wall 1) ================================================================
   wall1 = new FBox(500, height);
 
   wall1.setPosition(-250, height/2);
@@ -181,9 +109,8 @@ void wall1() {
   wall1.setFriction(0);
 
   world.add(wall1);
-}
 
-void wall2() {
+  // Top wall ================================================================
   wall2 = new FBox(width, 500);
 
   wall2.setPosition(width/2, -250);
@@ -193,9 +120,8 @@ void wall2() {
   wall2.setFriction(0);
 
   world.add(wall2);
-}
 
-void wall3() {
+  // Right wall ================================================================
   wall3 = new FBox(500, height);
 
   wall3.setPosition(width+250, height/2);
@@ -205,9 +131,8 @@ void wall3() {
   wall3.setFriction(0.5);
 
   world.add(wall3);
-}
 
-void leftBlob() {
+  // Left blob ================================================================
   leftBlob = new FCircle(100);
   leftBlob.setPosition(width*0.25, height*0.50);
 
@@ -221,9 +146,8 @@ void leftBlob() {
   leftBlob.setNoStroke();
 
   world.add(leftBlob);
-}
 
-void rightBlob() {
+  // Right blob ================================================================
   rightBlob = new FCircle(100);
   rightBlob.setPosition(width*0.75, height*0.50);
 
@@ -237,66 +161,8 @@ void rightBlob() {
   rightBlob.setNoStroke();
 
   world.add(rightBlob);
-}
 
-void lPlayerControl() {
-  leftCanJump = false;
-  ArrayList<FContact> lcontacts = leftBlob.getContacts();
-
-  //int i = 0; //i stands for index
-  //while (i < lcontacts.size) {
-  //  Contact lc = lcontacts.get(i);
-  //  if (c.contains(ground)) leftCanJump = true;
-  //  i++;
-  //}
-
-  for (FContact c : lcontacts) { // Assumes the list is not going to change.
-    if (c.contains(lground)) leftCanJump = true;
-  }
-
-  if (leftupkey && leftCanJump) {
-    leftBlob.addImpulse(0, -5000);
-  }
-  if (leftdownkey) {
-    leftBlob.addImpulse(0, 700);
-  }
-  if (leftrightkey) {
-    leftBlob.addImpulse(300, 0);
-  }
-  if (leftleftkey) {
-    leftBlob.addImpulse(-300, 0);
-  }
-  if (leftBlob.getX() + 25 >= width/2) {
-    leftBlob.setPosition(width/2 - 25, leftBlob.getY());
-  }
-}
-
-void rPlayerControl() {
-  rightCanJump = false;
-  ArrayList<FContact> rcontacts = rightBlob.getContacts();
-
-  for (FContact c : rcontacts) {
-    if (c.contains(rground)) rightCanJump = true;
-  }
-
-  if (rightupkey && rightCanJump) {
-    rightBlob.addImpulse(0, -5000);
-  }
-  if (rightdownkey) {
-    rightBlob.addImpulse(0, 700);
-  }
-  if (rightrightkey) {
-    rightBlob.addImpulse(300, 0);
-  }
-  if (rightleftkey) {
-    rightBlob.addImpulse(-300, 0);
-  }
-  if (rightBlob.getX() - 25 <= width/2) {
-    rightBlob.setPosition(width/2 + 25, rightBlob.getY());
-  }
-}
-
-void volleyball() {
+  // Volleyball ================================================================
   float vXNum = (int) random(2);
   if (vXNum == 0) {
     vXNum = 250;
@@ -317,49 +183,8 @@ void volleyball() {
   volleyball.setRestitution(1);
 
   world.add(volleyball);
-}
 
-void volleyballControl() {
-  ArrayList<FContact> vcontacts = volleyball.getContacts();
-
-  for (FContact v : vcontacts) {
-    if (v.contains(rground)) {
-      leftScore++;
-
-      wallpaperVar = (int) random(0, 7);
-
-      leftBlob.setPosition(width*0.25, height*0.75-30);
-      leftBlob.setVelocity(0, 0);
-      leftBlob.setForce(0, 0);
-      rightBlob.setPosition(width*0.75, height*0.75-30);
-      rightBlob.setVelocity(0, 0);
-      rightBlob.setForce(0, 0);
-      volleyball.setPosition(width*0.25, height/2);
-      volleyball.setVelocity(0, 0);
-      volleyball.setForce(0, 0);
-    }
-  }
-
-  for (FContact v : vcontacts) {
-    if (v.contains(lground)) {
-      rightScore++;
-
-      wallpaperVar = (int) random(0, 7);
-
-      leftBlob.setPosition(width*0.25, height*0.75-30);
-      leftBlob.setVelocity(0, 0);
-      leftBlob.setForce(0, 0);
-      rightBlob.setPosition(width*0.75, height*0.75-30);
-      rightBlob.setVelocity(0, 0);
-      rightBlob.setForce(0, 0);
-      volleyball.setPosition(width*0.75, height/2);
-      volleyball.setVelocity(0, 0);
-      volleyball.setForce(0, 0);
-    }
-  }
-}
-
-void scores() { //once a player wins, all of the scoring circles fall off and explode
+  // Scoring system ================================================================
   lscore1 = new FCircle(25);
   lscore2 = new FCircle(25);
   lscore3 = new FCircle(25);
@@ -451,6 +276,136 @@ void scores() { //once a player wins, all of the scoring circles fall off and ex
   world.add(rscore1);
   world.add(rscore2);
   world.add(rscore3);
+}
+
+void draw() {
+  if (wallpaperVar == 0) {
+    background(b1);
+    mountainTheme();
+  } else if (wallpaperVar == 1) {
+    background(b2);
+    forestTheme();
+  } else if (wallpaperVar == 2) {
+    background(b3);
+    mountainSeaTheme();
+  } else if (wallpaperVar == 3) {
+    background(b4);
+    snowTheme();
+  } else if (wallpaperVar == 4) {
+    background(b5);
+    poolTheme();
+  } else if (wallpaperVar == 5) {
+    background(b6);
+    greenValleyTheme();
+  } else if (wallpaperVar == 6) {
+    background(b7);
+    autumnTheme();
+  }
+
+  world.step();
+  world.draw();
+
+  // Left player control ================================================================
+  leftCanJump = false;
+  ArrayList<FContact> lcontacts = leftBlob.getContacts();
+
+  //int i = 0; //i stands for index
+  //while (i < lcontacts.size) {
+  //  Contact lc = lcontacts.get(i);
+  //  if (c.contains(ground)) leftCanJump = true;
+  //  i++;
+  //}
+
+  for (FContact c : lcontacts) { // Assumes the list is not going to change.
+    if (c.contains(lground)) leftCanJump = true;
+  }
+
+  if (leftupkey && leftCanJump) {
+    leftBlob.addImpulse(0, -5000);
+  }
+  if (leftdownkey) {
+    leftBlob.addImpulse(0, 700);
+  }
+  if (leftrightkey) {
+    leftBlob.addImpulse(300, 0);
+  }
+  if (leftleftkey) {
+    leftBlob.addImpulse(-300, 0);
+  }
+  if (leftBlob.getX() + 25 >= width/2) {
+    leftBlob.setPosition(width/2 - 25, leftBlob.getY());
+  }
+
+  // Right player control ================================================================
+  rightCanJump = false;
+  ArrayList<FContact> rcontacts = rightBlob.getContacts();
+
+  for (FContact c : rcontacts) {
+    if (c.contains(rground)) rightCanJump = true;
+  }
+
+  if (rightupkey && rightCanJump) {
+    rightBlob.addImpulse(0, -5000);
+  }
+  if (rightdownkey) {
+    rightBlob.addImpulse(0, 700);
+  }
+  if (rightrightkey) {
+    rightBlob.addImpulse(300, 0);
+  }
+  if (rightleftkey) {
+    rightBlob.addImpulse(-300, 0);
+  }
+  if (rightBlob.getX() - 25 <= width/2) {
+    rightBlob.setPosition(width/2 + 25, rightBlob.getY());
+  }
+  
+  // Volleyball control ================================================================
+  ArrayList<FContact> vcontacts = volleyball.getContacts();
+
+  for (FContact v : vcontacts) {
+    if (v.contains(rground)) {
+      leftScore++;
+
+      wallpaperVar = (int) random(0, 7);
+
+      leftBlob.setPosition(width*0.25, height*0.75-30);
+      leftBlob.setVelocity(0, 0);
+      leftBlob.setForce(0, 0);
+      rightBlob.setPosition(width*0.75, height*0.75-30);
+      rightBlob.setVelocity(0, 0);
+      rightBlob.setForce(0, 0);
+      volleyball.setPosition(width*0.25, height/2);
+      volleyball.setVelocity(0, 0);
+      volleyball.setForce(0, 0);
+    }
+  }
+
+  for (FContact v : vcontacts) {
+    if (v.contains(lground)) {
+      rightScore++;
+
+      wallpaperVar = (int) random(0, 7);
+
+      leftBlob.setPosition(width*0.25, height*0.75-30);
+      leftBlob.setVelocity(0, 0);
+      leftBlob.setForce(0, 0);
+      rightBlob.setPosition(width*0.75, height*0.75-30);
+      rightBlob.setVelocity(0, 0);
+      rightBlob.setForce(0, 0);
+      volleyball.setPosition(width*0.75, height/2);
+      volleyball.setVelocity(0, 0);
+      volleyball.setForce(0, 0);
+    }
+  }
+
+  if (mode == 0) {
+    game();
+  } else if (mode == 1) {
+    leftWins();
+  } else if (mode == 2) {
+    rightWins();
+  }
 }
 
 void keyPressed() {

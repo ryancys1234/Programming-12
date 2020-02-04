@@ -1,4 +1,18 @@
 void game() {
+  textSize(25);
+  fill(0);
+  text("Score: " + rightScore, width*0.80, height*0.10);
+  text("Score: " + leftScore, width*0.10, height*0.10);
+
+  if (leftScore == 3 && rightPlayerWins == false) {
+    mode = 1;
+    leftPlayerWins = true;
+  }
+
+  if (rightScore == 3 && leftPlayerWins == false) {
+    mode = 2;
+    rightPlayerWins = true;
+  }
 }
 
 void mountainTheme() {
@@ -34,12 +48,17 @@ void leftWins() {
 }
 
 void leftMouseReleased() {
-  mode = 1;
+  leftScore = 0;
+  rightScore = 0;
+  mode = 0;
   setup();
+  leftPlayerWins = false;
+  rightPlayerWins = false;
 }
 
 void rightWins() {
   background(255);
+  fill(255, 18, 34);
   textSize(100);
   text("Right Player Wins", width/2, height/2);
   textAlign(CENTER);
@@ -49,6 +68,10 @@ void rightWins() {
 }
 
 void rightMouseReleased() {
-  mode = 1;
+  leftScore = 0;
+  rightScore = 0;
+  mode = 0;
   setup();
+  leftPlayerWins = false;
+  rightPlayerWins = false;
 }
