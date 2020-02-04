@@ -12,7 +12,12 @@ boolean up, down, left, right, w, a, s, d;
 
 PImage map;
 int x = 0, y = 0;
-int gs = 50;
+int gs = 5;
+
+FBox blck, yllw, bl, gr, rd, brwn;
+FBox player;
+
+ArrayList contacts;
 
 FWorld world;
 
@@ -21,43 +26,57 @@ void setup() {
   Fisica.init(this);
   world = new FWorld();
 
-  map = loadImage("Map1.png");
+  map = loadImage("Map2.png");
+
+  //blck = new FBox (gs, gs);
+  //blck.setFill(black);
+  //blck.setPosition(gs*x + gs/2, gs*y + gs/2);
+  //blck.setName("ground");
+  //blck.setStatic(true);
+
+  //world.add(blck);
 
   while (y < map.height) {
     color c = map.get(x, y);
 
     if (c == black) {
-      FBox bl = new FBox (gs, gs);
+      blck = new FBox (gs, gs);
+      blck.setFill(black);
+      blck.setPosition(gs*x + gs/2, gs*y + gs/2);
+      blck.setName("ground");
+      blck.setStatic(true);
 
-      bl.setFill(black);
+      world.add(blck);
+    }
+
+    if (c == blue) {
+      bl = new FBox (gs, gs);
+
+      bl.setFill(blue);
       bl.setPosition(gs*x + gs/2, gs*y + gs/2);
       bl.setStatic(true);
 
       world.add(bl);
     }
-    
-    if (c == yellow) {
-      
-    }
-    
-    if (c == blue) {
-      
-    }
-    
+
     if (c == green) {
-      
+      gr = new FBox (gs, gs);
+
+      gr.setFill(green);
+      gr.setPosition(gs*x + gs/2, gs*y + gs/2);
+      gr.setStatic(true);
+
+      world.add(gr);
     }
-    
-    if (c == red) {
-      
-    }
-    
-    if (c == grey) {
-      
-    }
-    
+
     if (c == brown) {
-      
+      brwn = new FBox (gs, gs);
+
+      brwn.setFill(brown);
+      brwn.setPosition(gs*x + gs/2, gs*y + gs/2);
+      brwn.setStatic(true);
+
+      world.add(brwn);
     }
 
     x++; // Moves horizontally
@@ -66,18 +85,49 @@ void setup() {
       y++;
     }
   }
+
+  player = new FBox(gs*2, gs*2);
+  player.setPosition(width*0.25, height*0.50);
+
+  player.setStroke(0);
+  player.setStrokeWeight(1);
+  player.setFill(black);
+
+  player.setDensity(1);
+  player.setFriction(1);
+  player.setRestitution(0);
+  player.setNoStroke();
+  player.setRotatable(false);
+
+  world.add(player);
 }
 
 void draw() {
   background(255);
+
+  pushMatrix();
+  translate(-player.getX() + width/2, -player.getY() + height/2);
   world.step();
   world.draw();
+  popMatrix();
+
+  ArrayList<FContact> contacts = player.getContacts();
   
-  if (left) {
+  for (FContact c : contacts) { // Assumes the list is not going to change.
+    if (c.contains(ground)) canJump = true;
   }
   
-  if (right) {
-    
+  if (up || w && canJump == true) {
+    player.addImpulse(0, -10);
+  }
+  if (down || s) {
+    player.addImpulse(0, 10);
+  }
+  if (right || d) {
+    player.addImpulse(10, 0);
+  }
+  if (left || a) {
+    player.addImpulse(-10, 0);
   }
 }
 
