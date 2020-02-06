@@ -9,10 +9,11 @@ color grey = #2B99A2;
 color brown = #5d8256;
 
 boolean up, down, left, right, w, a, s, d;
+boolean canJump = false;
 
 PImage map;
 int x = 0, y = 0;
-int gs = 5;
+int gs = 20;
 
 FBox blck, yllw, bl, gr, rd, brwn;
 FBox player;
@@ -25,6 +26,7 @@ void setup() {
   size(1000, 800);
   Fisica.init(this);
   world = new FWorld();
+  world.setGravity(0, 900);
 
   map = loadImage("Map2.png");
 
@@ -43,7 +45,6 @@ void setup() {
       blck = new FBox (gs, gs);
       blck.setFill(black);
       blck.setPosition(gs*x + gs/2, gs*y + gs/2);
-      blck.setName("ground");
       blck.setStatic(true);
 
       world.add(blck);
@@ -111,23 +112,24 @@ void draw() {
   world.draw();
   popMatrix();
 
+  canJump = false;
   ArrayList<FContact> contacts = player.getContacts();
-  
-  for (FContact c : contacts) { // Assumes the list is not going to change.
-    if (c.contains(ground)) canJump = true;
+
+  for (FContact c : contacts) {
+    if (c.contains(blck)) canJump = true;
   }
-  
-  if (up || w && canJump == true) {
-    player.addImpulse(0, -10);
+
+  if (up && canJump == true || w && canJump == true) {
+    player.addImpulse(0, -100);
   }
   if (down || s) {
-    player.addImpulse(0, 10);
+    player.addImpulse(0, 100);
   }
   if (right || d) {
-    player.addImpulse(10, 0);
+    player.addImpulse(100, 0);
   }
   if (left || a) {
-    player.addImpulse(-10, 0);
+    player.addImpulse(-100, 0);
   }
 }
 
