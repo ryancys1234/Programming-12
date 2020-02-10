@@ -52,13 +52,10 @@ void leftMouseReleased() {
   rightScore = 0;
   mode = 0;
   setup();
-  leftPlayerWins = false;
-  rightPlayerWins = false;
 }
 
 void rightWins() {
   background(255);
-  fill(255, 18, 34);
   textSize(100);
   text("Right Player Wins", width/2, height/2);
   textAlign(CENTER);
@@ -72,6 +69,4 @@ void rightMouseReleased() {
   rightScore = 0;
   mode = 0;
   setup();
-  leftPlayerWins = false;
-  rightPlayerWins = false;
 }

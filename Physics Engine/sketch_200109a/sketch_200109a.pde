@@ -14,13 +14,14 @@ boolean leftupkey, leftdownkey, leftleftkey, leftrightkey, rightupkey, rightdown
 boolean leftCanJump = true, rightCanJump = true;
 boolean leftPlayerWins = false, rightPlayerWins = false;
 
-int rightScore = 0;
-int leftScore = 0;
+int rightScore = 0, leftScore = 0;
 int betweenGamesTime = 0;
 
 FPoly lground, rground, courtDivider;
 FBox wall1, wall2, wall3;
-FCircle leftBlob, rightBlob, volleyball, lscore1, lscore2, lscore3, rscore1, rscore2, rscore3;
+FCircle leftBlob, rightBlob, volleyball, lscore1, lscore2, lscore3, rscore1, rscore2, rscore3, lscore, rscore;
+
+color blue = color(93, 67, 214), red = color(255, 18, 34), yellow = color(71, 255, 0);
 
 PImage b1, b2, b3, b4, b5, b6, b7, bv;
 int wallpaperVar;
@@ -34,7 +35,7 @@ void setup() {
   Fisica.init(this);
   world = new FWorld();
   world.setGravity(0, 800);
-  
+
   b1 = loadImage("74-745287_width-desktop-background-material-design.jpg");
   b1.resize(1000, 800);
   b2 = loadImage("calendar-april.jpg");
@@ -51,9 +52,9 @@ void setup() {
   b7.resize(1000, 800);
   bv = loadImage("Volleyball.png");
   bv.resize(20, 20);
-  
+
   wallpaperVar = (int) random(0, 7);
-  
+
   // Left ground ================================================================
   lground = new FPoly();
 
@@ -71,7 +72,7 @@ void setup() {
 
   // Right ground ================================================================
   rground = new FPoly();
-  
+
   rground.vertex(width/2, height*0.75);
   rground.vertex(width/2, height+100);
   rground.vertex(width+100, height+100);
@@ -185,97 +186,164 @@ void setup() {
   world.add(volleyball);
 
   // Scoring system ================================================================
-  lscore1 = new FCircle(25);
-  lscore2 = new FCircle(25);
-  lscore3 = new FCircle(25);
-  rscore1 = new FCircle(25);
-  rscore2 = new FCircle(25);
-  rscore3 = new FCircle(25);
+  float rScoreColor = yellow, lScoreColor = yellow;
 
-  lscore1.setPosition (100, height/8);
-  lscore2.setPosition (150, height/8);
-  lscore3.setPosition (200, height/8);
-  rscore1.setPosition (800, height/8);
-  rscore2.setPosition (850, height/8);
-  rscore3.setPosition (900, height/8);
+  for (int lxpos = 100; lxpos <= 200; lxpos += 50) {
+    lscore = new FCircle(25);
+    lscore.setPosition(lxpos, height/8);
+    lscore.setStatic(true);
+    lscore.setStroke(0);
+    lscore.setStrokeWeight(0);
+    lscore.setFill(lScoreColor);
+    lscore.setDensity(1);
+    lscore.setFriction(1);
+    lscore.setRestitution(0);
 
-  lscore1.setStatic(true);
-  lscore2.setStatic(true);
-  lscore3.setStatic(true);
-  rscore1.setStatic(true);
-  rscore2.setStatic(true);
-  rscore3.setStatic(true);
-
-  lscore1.setStroke(0);
-  lscore2.setStroke(0);
-  lscore3.setStroke(0);
-  rscore1.setStroke(0);
-  rscore2.setStroke(0);
-  rscore3.setStroke(0);
-
-  lscore1.setStrokeWeight(2);
-  lscore2.setStrokeWeight(2);
-  lscore3.setStrokeWeight(2);
-  rscore1.setStrokeWeight(2);
-  rscore2.setStrokeWeight(2);
-  rscore3.setStrokeWeight(2);
-
-  lscore1.setFill(71, 255, 0);
-  lscore2.setFill(71, 255, 0);
-  lscore3.setFill(71, 255, 0);
-  rscore1.setFill(71, 255, 0);
-  rscore2.setFill(71, 255, 0);
-  rscore3.setFill(71, 255, 0);
-
-  lscore1.setDensity(1);
-  lscore2.setDensity(1);
-  lscore3.setDensity(1);
-  rscore1.setDensity(1);
-  rscore2.setDensity(1);
-  rscore3.setDensity(1);
-
-  lscore1.setFriction(1);
-  lscore2.setFriction(1);
-  lscore3.setFriction(1);
-  rscore1.setFriction(1);
-  rscore2.setFriction(1);
-  rscore3.setFriction(1);
-
-  lscore1.setRestitution(0);
-  lscore2.setRestitution(0);
-  lscore3.setRestitution(0);
-  rscore1.setRestitution(0);
-  rscore2.setRestitution(0);
-  rscore3.setRestitution(0);
-
-  if (rightScore == 1) {
-    rscore3.setFill(255, 18, 34);
-  } else if (rightScore == 2) {
-    rscore2.setFill(255, 18, 34);
-  } else if (rightScore == 3) {
-    rscore1.setFill(255, 18, 34);
-    rscore3.setStatic(false);
-    rscore2.setStatic(false);
-    rscore1.setStatic(false);
+    if (leftScore == 1) {
+      lScoreColor = blue;
+      if (lscore.getX() == lxpos + 50) {
+        lscore.setFill(lScoreColor);
+      }
+    } else if (leftScore == 2) {
+      lScoreColor = blue;
+      if (lscore.getX() == lxpos + 100) {
+        lscore.setFill(lScoreColor);
+      }
+    } else if (leftScore == 3) {
+      lScoreColor = blue;
+      if (lscore.getX() == lxpos + 150) {
+        lscore.setFill(lScoreColor);
+      }
+      lscore3.setStatic(false);
+      lscore2.setStatic(false);
+      lscore1.setStatic(false);
+    }
   }
 
-  if (leftScore == 1) {
-    lscore3.setFill(93, 67, 214);
-  } else if (leftScore == 2) {
-    lscore2.setFill(93, 67, 214);
-  } else if (leftScore == 3) {
-    lscore1.setFill(93, 67, 214);
-    lscore3.setStatic(false);
-    lscore2.setStatic(false);
-    lscore1.setStatic(false);
+  for (int rxpos = 800; rxpos <= 900; rxpos += 50) {
+    rscore = new FCircle(25);
+    rscore.setPosition(rxpos, height/8);
+    rscore.setStatic(true);
+    rscore.setStroke(0);
+    rscore.setStrokeWeight(0);
+    rscore.setFill(yellow);
+    rscore.setDensity(1);
+    rscore.setFriction(1);
+    rscore.setRestitution(0);
+    world.add(rscore);
+
+    if (rightScore == 1) {
+      rScoreColor = red;
+      if (rscore.getX() == rxpos + 50) {
+        rscore.setFill(rScoreColor);
+      }
+    } else if (rightScore == 2) {
+      rScoreColor = red;
+      if (rscore.getX() == rxpos + 100) {
+        rscore.setFill(rScoreColor);
+      }
+    } else if (rightScore == 3) {
+      rScoreColor = red;
+      if (rscore.getX() == rxpos + 150) {
+        rscore.setFill(rScoreColor);
+      }
+      rscore3.setStatic(false);
+      rscore2.setStatic(false);
+      rscore1.setStatic(false);
+    }
   }
 
-  world.add(lscore1);
-  world.add(lscore2);
-  world.add(lscore3);
-  world.add(rscore1);
-  world.add(rscore2);
-  world.add(rscore3);
+  //lscore1 = new FCircle(25);
+  //lscore2 = new FCircle(25);
+  //lscore3 = new FCircle(25);
+  //rscore1 = new FCircle(25);
+  //rscore2 = new FCircle(25);
+  //rscore3 = new FCircle(25);
+
+  //lscore1.setPosition (100, height/8);
+  //lscore2.setPosition (150, height/8);
+  //lscore3.setPosition (200, height/8);
+  //rscore1.setPosition (800, height/8);
+  //rscore2.setPosition (850, height/8);
+  //rscore3.setPosition (900, height/8);
+
+  //lscore1.setStatic(true);
+  //lscore2.setStatic(true);
+  //lscore3.setStatic(true);
+  //rscore1.setStatic(true);
+  //rscore2.setStatic(true);
+  //rscore3.setStatic(true);
+
+  //lscore1.setStroke(0);
+  //lscore2.setStroke(0);
+  //lscore3.setStroke(0);
+  //rscore1.setStroke(0);
+  //rscore2.setStroke(0);
+  //rscore3.setStroke(0);
+
+  //lscore1.setStrokeWeight(2);
+  //lscore2.setStrokeWeight(2);
+  //lscore3.setStrokeWeight(2);
+  //rscore1.setStrokeWeight(2);
+  //rscore2.setStrokeWeight(2);
+  //rscore3.setStrokeWeight(2);
+
+  //lscore1.setFill(71, 255, 0);
+  //lscore2.setFill(71, 255, 0);
+  //lscore3.setFill(71, 255, 0);
+  //rscore1.setFill(71, 255, 0);
+  //rscore2.setFill(71, 255, 0);
+  //rscore3.setFill(71, 255, 0);
+
+  //lscore1.setDensity(1);
+  //lscore2.setDensity(1);
+  //lscore3.setDensity(1);
+  //rscore1.setDensity(1);
+  //rscore2.setDensity(1);
+  //rscore3.setDensity(1);
+
+  //lscore1.setFriction(1);
+  //lscore2.setFriction(1);
+  //lscore3.setFriction(1);
+  //rscore1.setFriction(1);
+  //rscore2.setFriction(1);
+  //rscore3.setFriction(1);
+
+  //lscore1.setRestitution(0);
+  //lscore2.setRestitution(0);
+  //lscore3.setRestitution(0);
+  //rscore1.setRestitution(0);
+  //rscore2.setRestitution(0);
+  //rscore3.setRestitution(0);
+
+  //if (rightScore == 1) {
+  //  rscore3.setFill(255, 18, 34);
+  //} else if (rightScore == 2) {
+  //  rscore2.setFill(255, 18, 34);
+  //} else if (rightScore == 3) {
+  //  rscore1.setFill(255, 18, 34);
+  //  rscore3.setStatic(false);
+  //  rscore2.setStatic(false);
+  //  rscore1.setStatic(false);
+  //}
+
+  //if (leftScore == 1) {
+  //  lscore3.setFill(93, 67, 214);
+  //} else if (leftScore == 2) {
+  //  lscore2.setFill(93, 67, 214);
+  //} else if (leftScore == 3) {
+  //  lscore1.setFill(93, 67, 214);
+  //  lscore3.setStatic(false);
+  //  lscore2.setStatic(false);
+  //  lscore1.setStatic(false);
+  //}
+
+  //world.add(lscore1);
+  //world.add(lscore2);
+  //world.add(lscore3);
+  //world.add(rscore1);
+  //world.add(rscore2);
+  //world.add(rscore3);
 }
 
 void draw() {
@@ -359,7 +427,7 @@ void draw() {
   if (rightBlob.getX() - 25 <= width/2) {
     rightBlob.setPosition(width/2 + 25, rightBlob.getY());
   }
-  
+
   // Volleyball control ================================================================
   ArrayList<FContact> vcontacts = volleyball.getContacts();
 
