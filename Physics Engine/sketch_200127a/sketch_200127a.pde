@@ -9,15 +9,17 @@ color grey = #2B99A2;
 color brown = #5d8256;
 
 boolean up, down, left, right, w, a, s, d;
-boolean canJump = false;
 
 PImage map;
 int x = 0, y = 0;
 int gs = 20;
+int blockY;
 
 FBox blck, yllw, bl, gr, rd, brwn;
 FBox player;
+FBomb bomb = null; // Doesn't immediately appear; only appears once timer is ended.
 
+ArrayList mapBlocks;
 ArrayList contacts;
 
 FWorld world;
@@ -29,14 +31,6 @@ void setup() {
   world.setGravity(0, 900);
 
   map = loadImage("Map2.png");
-
-  //blck = new FBox (gs, gs);
-  //blck.setFill(black);
-  //blck.setPosition(gs*x + gs/2, gs*y + gs/2);
-  //blck.setName("ground");
-  //blck.setStatic(true);
-
-  //world.add(blck);
 
   while (y < map.height) {
     color c = map.get(x, y);
@@ -87,8 +81,31 @@ void setup() {
     }
   }
 
+  blockY = (int) random(4);
+  // When block is off screen, eliminate from ArrayList.
+  //int i = 0;
+  //while (i < mapBlocks.size()) { //could also use a for loop
+  //  mapBlock mB = mapBlocks.get(i);
+  //  mB.show();
+  //  mB.act();
+  //  if (mB.getX() < 0) {
+  //    mapBlocks.remove(i);
+  //  } else {
+  //    i++;
+  //  }
+  //}
+
+  //for (int blockX = width; blockX < 100; blockX++) {
+  //  blck = new FBox (gs, gs);
+  //  blck.setFill(black);
+  //  blck.setPosition(blockX, blockY);
+  //  blck.setStatic(true);
+
+  //  world.add(blck);
+  //}
+
   player = new FBox(gs*2, gs*2);
-  player.setPosition(width*0.25, height*0.50);
+  player.setPosition(width/4, height/2);
 
   player.setStroke(0);
   player.setStrokeWeight(1);
@@ -112,14 +129,14 @@ void draw() {
   world.draw();
   popMatrix();
 
-  canJump = false;
+  boolean canJump = false;
   ArrayList<FContact> contacts = player.getContacts();
 
   for (FContact c : contacts) {
     if (c.contains(blck)) canJump = true;
   }
 
-  if (up && canJump == true || w && canJump == true) {
+  if (up && canJump) {
     player.addImpulse(0, -100);
   }
   if (down || s) {
