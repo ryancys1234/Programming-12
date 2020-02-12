@@ -8,7 +8,8 @@ color red = #F22027;
 color grey = #2B99A2;
 color brown = #5d8256;
 
-boolean up, down, left, right, w, a, s, d;
+boolean up, down, left, right, space, w, a, s, d;
+boolean canJump;
 
 PImage map;
 int x = 0, y = 0;
@@ -19,6 +20,7 @@ FBox blck, yllw, bl, gr, rd, brwn;
 FBox player;
 FBomb bomb = null; // Doesn't immediately appear; only appears once timer is ended.
 
+ArrayList<FBox> bombs = new ArrayList<FBox>();
 ArrayList mapBlocks;
 ArrayList contacts;
 
@@ -28,6 +30,7 @@ void setup() {
   size(1000, 800);
   Fisica.init(this);
   world = new FWorld();
+  FWorld world = new FWorld(-10000, -10000, 10000, 10000);
   world.setGravity(0, 900);
 
   map = loadImage("Map2.png");
@@ -129,14 +132,14 @@ void draw() {
   world.draw();
   popMatrix();
 
-  boolean canJump = false;
+  canJump = false;
   ArrayList<FContact> contacts = player.getContacts();
 
   for (FContact c : contacts) {
     if (c.contains(blck)) canJump = true;
   }
 
-  if (up && canJump) {
+  if (up && canJump || w && canJump) {
     player.addImpulse(0, -100);
   }
   if (down || s) {
@@ -148,6 +151,10 @@ void draw() {
   if (left || a) {
     player.addImpulse(-100, 0);
   }
+  if (space && bomb == null) {
+    bomb = new FBomb();
+  }
+  if (bomb != null) bomb.act();
 }
 
 void keyPressed() {
@@ -155,6 +162,7 @@ void keyPressed() {
   if (keyCode == DOWN) down = true;
   if (keyCode == LEFT) left = true;
   if (keyCode == RIGHT) right = true;
+  if (keyCode == ' ') space = true;
   if (keyCode == 'W' || keyCode == 'w') w = true;
   if (keyCode == 'A' || keyCode == 'a') a = true;
   if (keyCode == 'S' || keyCode == 's') s = true;
@@ -166,6 +174,7 @@ void keyReleased() {
   if (keyCode == DOWN) down = false;
   if (keyCode == LEFT) left = false;
   if (keyCode == RIGHT) right = false;
+  if (keyCode == ' ') space = false;
   if (keyCode == 'W' || keyCode == 'w') w = false;
   if (keyCode == 'A' || keyCode == 'a') a = false;
   if (keyCode == 'S' || keyCode == 's') s = false;
