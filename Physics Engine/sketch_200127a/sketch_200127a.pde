@@ -20,17 +20,15 @@ FBox blck, yllw, bl, gr, rd, brwn;
 FBox player;
 FBomb bomb = null; // Doesn't immediately appear; only appears once timer is ended.
 
-ArrayList<FBox> bombs = new ArrayList<FBox>();
+ArrayList<FBox> boxes = new ArrayList<FBox>();
 ArrayList mapBlocks;
-ArrayList contacts;
 
 FWorld world;
 
 void setup() {
   size(1000, 800);
   Fisica.init(this);
-  world = new FWorld();
-  FWorld world = new FWorld(-10000, -10000, 10000, 10000);
+  world = new FWorld(-10000, -10000, 10000, 10000);
   world.setGravity(0, 900);
 
   map = loadImage("Map2.png");
@@ -45,6 +43,7 @@ void setup() {
       blck.setStatic(true);
 
       world.add(blck);
+      boxes.add(blck);
     }
 
     if (c == blue) {
@@ -136,10 +135,13 @@ void draw() {
   ArrayList<FContact> contacts = player.getContacts();
 
   for (FContact c : contacts) {
-    if (c.contains(blck)) canJump = true;
+    if (c.contains(blck)) {
+      canJump = true;
+      println("Works");
+    }
   }
 
-  if (up && canJump || w && canJump) {
+  if (up || w) {
     player.addImpulse(0, -100);
   }
   if (down || s) {
