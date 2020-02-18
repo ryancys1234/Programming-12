@@ -1,10 +1,11 @@
-class FBomb extends FBox {
+class FBomb extends FCircle {
   int timer;
 
-  FBomb() {
-    super(gs, gs);
+  FBomb() { 
+    super(gs); // Superclass (FCircle) constructor
     this.setFillColor(yellow);
-    this.setPosition(player.getX(), player.getY() + gs); //Spawns beside the player box.
+    this.setPosition(player.getX() + gs, player.getY()); //Spawns beside the player box.
+    //potentially make it to be launched (with initial velocity)
     world.add(this);
 
     timer = 60;
@@ -23,13 +24,13 @@ class FBomb extends FBox {
   }
 
   void explode() {
-    for (int i = 0; i < bombs.size(); i++) {
-      FBox b = bombs.get(i);
-      if (dist(this.getX(), this.getY(), b.getX(), b.getY()) < 200) {
-        float vx = (b.getX() - this.getX())*5;
-        float vy = (b.getX() - this.getX())*5;
-        b.setVelocity(vx, vy);
-        b.setStatic(false);
+    for (int i = 0; i < boxes.size(); i++) {
+      FBox blck = boxes.get(i);
+      if (dist(this.getX(), this.getY(), blck.getX(), blck.getY()) < 200) {
+        float vx = blck.getX() - this.getX();
+        float vy = blck.getY() - this.getY();
+        blck.setVelocity(5*vx, 5*vy);
+        blck.setStatic(false);
       }
     }
   }
