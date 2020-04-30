@@ -1,4 +1,4 @@
-// Server
+// Chat Server
 // Run the server first, then the client
 import processing.net.*;
 

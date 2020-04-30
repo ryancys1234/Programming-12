@@ -1,4 +1,4 @@
-// Client
+// Chat Client
 import processing.net.*;
 
 Client myClient;
