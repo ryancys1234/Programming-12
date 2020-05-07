@@ -22,6 +22,12 @@ void setup() {
 void draw() {
   background(255);
   
+  if (sTurn == false) {
+    fill(0);
+    textSize(12);
+    text("Wait for the other player to make their move", width/2, height/3);
+  }
+  
   // Grid
   stroke(0);
   line(0, 100, 300, 100);
