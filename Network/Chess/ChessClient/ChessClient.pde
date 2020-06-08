@@ -5,29 +5,27 @@ import processing.net.*;
 Client myClient;
 
 PImage wr, wb, wkn, wq, wki, wp, br, bb, bkn, bq, bki, bp;
-boolean select1;
+boolean select1 = true;
 boolean cTurn = true;
 boolean empty = false;
 int var = 1;
 int r1, c1, r2, c2;
 
 char grid[][] = {
-  {'R', 'B', 'N', 'Q', 'K', 'N', 'B', 'R'}, 
+  {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}, 
   {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'}, 
   {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
   {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
   {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
   {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, 
   {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'}, 
-  {'r', 'b', 'n', 'q', 'k', 'n', 'b', 'r'}
+  {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
 };
 
 void setup() {
   size(800, 800);
 
   myClient = new Client(this, "127.0.0.1", 1234);
-
-  //select1 = true;
 
   br = loadImage("blackRook.png");
   bb = loadImage("blackBishop.png");
@@ -55,9 +53,9 @@ void draw() {
     text("Wait for the other player to make their move", width/4, height/2);
   }
   
-  //if (var == 2) {
-  //  highlight(c1 * 100, r1 * 100);
-  //}
+  if (var == 2) {
+    highlight(c1 * 100, r1 * 100);
+  }
 }
 
 void drawBoard() {
@@ -79,14 +77,14 @@ void drawPieces() {
   for (int row = 0; row < 8; row++) {
     for (int col = 0; col < 8; col++) {
       if (grid[row][col] == 'r') image (wr, col * 100, row * 100, 100, 100);
-      if (grid[row][col] == 'b') image (wb, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'n') image (wkn, col * 100, row * 100, 100, 100);
+      if (grid[row][col] == 'b') image (wb, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'q') image (wq, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'k') image (wki, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'p') image (wp, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'R') image (br, col * 100, row * 100, 100, 100);
-      if (grid[row][col] == 'B') image (bb, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'N') image (bkn, col * 100, row * 100, 100, 100);
+      if (grid[row][col] == 'B') image (bb, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'Q') image (bq, col * 100, row  * 100, 100, 100);
       if (grid[row][col] == 'K') image (bki, col * 100, row * 100, 100, 100);
       if (grid[row][col] == 'P') image (bp, col * 100, row * 100, 100, 100);
@@ -115,18 +113,12 @@ void highlight(int y, int x) {
 }
 
 void mouseReleased() {
-  //for (int row = 0; row < 8; row++) {
-  //  for (int col = 0; col < 8; col++) {
-  //    if (grid[row][col] == ' ') {
-  //      empty = true;
-  //    }
-  //  }
-  //}
-  
   if (select1 == true) {
     r1 = mouseY / 100;
     c1 = mouseX / 100;
-    select1 = false;
+    if (grid[r1][c1] != ' ') {
+      select1 = false;
+    }
     var = 2;
   } else {
     r2 = mouseY / 100;
