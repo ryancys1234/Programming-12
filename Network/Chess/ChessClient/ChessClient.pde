@@ -7,6 +7,7 @@ Client myClient;
 PImage wr, wb, wkn, wq, wki, wp, br, bb, bkn, bq, bki, bp;
 boolean select1;
 boolean cTurn = true;
+boolean empty = false;
 int var = 1;
 int r1, c1, r2, c2;
 
@@ -53,6 +54,10 @@ void draw() {
     textSize(18);
     text("Wait for the other player to make their move", width/4, height/2);
   }
+  
+  //if (var == 2) {
+  //  highlight(c1 * 100, r1 * 100);
+  //}
 }
 
 void drawBoard() {
@@ -110,17 +115,25 @@ void highlight(int y, int x) {
 }
 
 void mouseReleased() {
+  //for (int row = 0; row < 8; row++) {
+  //  for (int col = 0; col < 8; col++) {
+  //    if (grid[row][col] == ' ') {
+  //      empty = true;
+  //    }
+  //  }
+  //}
+  
   if (select1 == true) {
     r1 = mouseY / 100;
     c1 = mouseX / 100;
     select1 = false;
-    highlight(c1 * 100, r1 * 100);
+    var = 2;
   } else {
     r2 = mouseY / 100;
     c2 = mouseX / 100;
     if (!(r2 == r1 && c2 == c1) && cTurn == true) {
       grid[r2][c2] = grid[r1][c1];
-      grid[r1][c1] = ' ';
+      grid[r1][c1] = ' '; // Sets to blank
       myClient.write(r1 + "," + c1 + "," + r2 + "," + c2);
       select1 = true;
       cTurn = false;
