@@ -5,11 +5,12 @@ import processing.net.*;
 Client myClient;
 
 PImage wr, wb, wkn, wq, wki, wp, br, bb, bkn, bq, bki, bp;
-boolean select1 = true;
+boolean select1 = true, pawnFirst = false;
 boolean cTurn = true;
-boolean empty = false;
-int var = 1;
+boolean timeUp = false;
 int r1, c1, r2, c2;
+int var = 1;
+int timer, timeSeconds;
 
 char grid[][] = {
   {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}, 
@@ -23,7 +24,7 @@ char grid[][] = {
 };
 
 void setup() {
-  size(800, 800);
+  size(800, 900);
 
   myClient = new Client(this, "127.0.0.1", 1234);
 
@@ -46,16 +47,39 @@ void draw() {
   drawBoard();
   drawPieces();
   receive();
+  moves(r1, c1, r2, c2);
 
   if (cTurn == false) {
     fill(0);
     textSize(18);
     text("Wait for the other player to make their move", width/4, height/2);
   }
-  
+
   if (var == 2) {
     highlight(c1 * 100, r1 * 100);
   }
+
+  //highlightValid(c1 * 100, r1 * 100);
+
+  if (cTurn) {
+    timer++;
+  } else if (!cTurn) {
+    timer = 0;
+  }
+
+  if (timer == 60) {
+    timeSeconds++;
+    timer = 0;
+  }
+
+  if (timeSeconds == 60) {
+    timeUp = true;
+    timeSeconds = 0;
+  }
+  
+  fill(0);
+  text(timeSeconds, width/2, 850);
+  textSize(30);
 }
 
 void drawBoard() {
@@ -105,12 +129,68 @@ void receive() {
   }
 }
 
+boolean moves(int r1, int c1, int r2, int c2) {
+  r1 = mouseY / 100;
+  c1 = mouseX / 100;
+  r2 = mouseY / 100;
+  c2 = mouseX / 100;
+
+  // Pawn ========================
+  if (r1 == 1 || r1 == 6) pawnFirst = true;
+
+  if (grid[r1][c1] == 'P' || grid[r2][c2] == 'p') {
+    if (pawnFirst == true) {
+      if ((abs(r2 - r1) == 1 && c2 == c1) || (abs(r2 - r1) == 2 && c2 == c1)) return(true);
+    } else if (pawnFirst == false) {
+      if (abs(r2 - r1) == 1 && c2 == c1) return(true);
+    }
+  }
+
+  // Rook ========================
+  if (grid[r1][c1] == 'R' || grid[r1][c1] == 'r') {
+    if (r2 == r1 || c2 == c1) return(true);
+  }
+
+  // Knight ========================
+  if (grid[r1][c1] == 'N' || grid[r1][c1] == 'n') {
+    if (abs(r2 - r1) == 1 && abs(c2 - c1) == 2 || abs(r2 - r1) == 2 & abs(c2 - c1) == 1) return(true);
+  }
+  
+  // Bishop ========================
+  if (grid[r1][c1] == 'B' || grid[r2][c2] == 'b') {
+    if (abs(r2 - r1) == abs(c2 - c1)) return(true);
+  }
+  
+  // Queen ========================
+  if (grid[r1][c1] == 'Q' || grid[r1][c1] == 'q') {
+    if (r2 == r1 || c2 == c1 || abs(r2 - r1) == abs(c2 - c1)) return(true);
+  }
+
+  // King ========================
+  if (grid[r1][c1] == 'K' || grid[r1][c1] == 'k') {
+    if ((r2 == r1 || c2 == c1) && (abs(r2 - r1) == 1 || abs(c2 - c1) == 1) || (abs(r2 - r1) == 1 && abs(c2 - c1) == 1)) return(true);
+  }
+
+  return(false);
+}
+
 void highlight(int y, int x) {
   noFill();
   strokeWeight(5);
   stroke(#000000);
   rect(y, x, 100, 100);
 }
+
+//void highlightValid(int y, int x) {
+//  for (int row = 0; row < 8; row++) {
+//    for (int col = 0; col < 8; col++) {
+//      noFill();
+//      strokeWeight(5);
+//      stroke(#FFFFFF);
+//      rect(col * 100, row * 100, 100, 100);
+//    }
+//  }
+//}
 
 void mouseReleased() {
   if (select1 == true) {
@@ -120,7 +200,7 @@ void mouseReleased() {
       select1 = false;
     }
     var = 2;
-  } else {
+  } else if (moves(r1, c1, r2, c2) && !timeUp) {
     r2 = mouseY / 100;
     c2 = mouseX / 100;
     if (!(r2 == r1 && c2 == c1) && cTurn == true) {
@@ -133,4 +213,7 @@ void mouseReleased() {
       var = 1;
     }
   }
+  //else if (timeUp) {
+  //  cTurn = false;
+  //}
 }
