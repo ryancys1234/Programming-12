@@ -2,7 +2,7 @@ class FBomb extends FCircle {
   int timer;
 
   FBomb() { 
-    super(gs); // Superclass (FCircle) constructor
+    super(gs); //Superclass (FCircle) constructor
     this.setFillColor(yellow);
     this.setPosition(player.getX() + gs, player.getY()); //Spawns beside the player box.
     //potentially make it to be launched (with initial velocity)
