@@ -1,4 +1,4 @@
-// Chess game, server.
+//Chess game, server.
 
 import processing.net.*;
 
@@ -136,7 +136,7 @@ boolean moves(int r1, int c1, int r2, int c2) {
   r2 = mouseY / 100;
   c2 = mouseX / 100;
 
-  // Pawn ========================
+  //Pawn ========================
   if (r1 == 1 || r1 == 6) pawnFirst = true;
 
   if (grid[r1][c1] == 'P' || grid[r2][c2] == 'p') {
@@ -147,27 +147,27 @@ boolean moves(int r1, int c1, int r2, int c2) {
     }
   }
 
-  // Rook ========================
+  //Rook ========================
   if (grid[r1][c1] == 'R' || grid[r1][c1] == 'r') {
     if (r2 == r1 || c2 == c1) return(true);
   }
 
-  // Knight ========================
+  //Knight ========================
   if (grid[r1][c1] == 'N' || grid[r1][c1] == 'n') {
     if (abs(r2 - r1) == 1 && abs(c2 - c1) == 2 || abs(r2 - r1) == 2 & abs(c2 - c1) == 1) return(true);
   }
   
-  // Bishop ========================
+  //Bishop ========================
   if (grid[r1][c1] == 'B' || grid[r2][c2] == 'b') {
     if (abs(r2 - r1) == abs(c2 - c1)) return(true);
   }
   
-  // Queen ========================
+  //Queen ========================
   if (grid[r1][c1] == 'Q' || grid[r1][c1] == 'q') {
     if (r2 == r1 || c2 == c1 || abs(r2 - r1) == abs(c2 - c1)) return(true);
   }
 
-  // King ========================
+  //King ========================
   if (grid[r1][c1] == 'K' || grid[r1][c1] == 'k') {
     if ((r2 == r1 || c2 == c1) && (abs(r2 - r1) == 1 || abs(c2 - c1) == 1) || (abs(r2 - r1) == 1 && abs(c2 - c1) == 1)) return(true);
   }
