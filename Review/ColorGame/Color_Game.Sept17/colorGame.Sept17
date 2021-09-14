@@ -1,0 +1,42 @@
+//Color game project
+//1. Intro page (start with mode framework)
+//2. Generate the puzzle (don't forget to generate new puzzle when player get it right)
+
+int mode = 1; //sets the starting mode to game
+final int intro = 0;
+final int game = 1;
+final int gameOver = 2;
+
+int score = 0;
+
+//colors
+color red = #f03743;
+color blue = #427bf5;
+color yellow = #44ff00;
+color orange = #ff8103;
+color brown = #654321;
+color green = #b59e4a;
+color purple = #172778;
+color grey = #408581;
+
+//generates random color
+//int randNumber = (int) random(0,8);
+int randColor = (int) random(0,8); //(int) eliminates decimal point
+int randWord = (int) random(0,8);
+
+color[] colors = {red,blue,yellow,orange,brown,green,purple,grey};
+String[] words = {"Red", "Blue", "Yellow", "Orange", "Brown", "Green", "Purple", "Grey"};
+
+void setup() {
+  size(800,600);
+}
+
+void draw() {
+  if (mode == intro) {
+     intro();
+  } else if (mode == game) {
+     game();
+  } else if (mode == gameOver) {
+     gameOver();
+  }
+}

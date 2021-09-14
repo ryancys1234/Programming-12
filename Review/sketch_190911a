@@ -1,0 +1,57 @@
+//global variables (variables at the top, accessible anywhere)
+//variable names / types:
+  //int (integer)
+  //float(number with decimal / rational)
+  //color(store integer that represent color)
+  //boolean(stores true or false)
+  //string(stores text)
+  //char(a single character)
+  
+//declaring a variable, creates a new variable, gives
+//it a name, and locks in the type of value it stores
+
+
+//rules for naming variables:
+  //1. only use letters, numbers, dollar sign (but no other symbols,
+  //including spaces)
+  //2. if more than one word, first word is lowercase,
+  //but every subsequent word is capitalized
+  
+//example:
+  
+int xpos = 400;
+
+//int only appears once: that is, at the beginning
+//"=" is for declaring values. It is NOT an equation
+
+void setup(){
+ size(800,600);
+ xpos = 400; //this makes the circle stationary by itself,
+          //but it has the POTENTIAL to move
+}
+
+void draw(){
+  background(0);
+  
+  pushMatrix();
+  translate(xpos, 0);
+  face(xpos,200);
+  popMatrix();
+  
+  xpos = xpos-5;
+  if (xpos < -100)//parentheses have the CONDITIONS of the if statement
+  {
+    xpos = 1000;
+  }
+  
+}
+void face(int x, int y)//local variables
+{ 
+
+  fill(255);
+  ellipse(x,300,100,100);
+  fill(100);
+  ellipse(x-15,275,12.5,12.5);
+  ellipse(x+15,275,12.5,12.5);
+
+}

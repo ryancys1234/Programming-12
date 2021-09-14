@@ -1,0 +1,32 @@
+void intro() {
+  background(0, 0, 255);
+  textAlign(CENTER, CENTER);
+  textSize(50);
+  fill(randColor);
+  text("Color game", width/2, height/4);
+
+  //button
+  noStroke();
+  if (dist(width/2, 400, mouseX, mouseY) <= 50) {
+    fill(#5ecca0);
+  } else {
+    fill(#4bc9c7);
+  }
+  ellipse(width/2, 400, 100, 100);
+
+  //button text
+  textAlign(CENTER, CENTER);
+  textSize(20);
+  fill(15);
+  text("Start", width/2, 400);
+
+  //if (mouseReleased) { 
+  //  mode = 1;
+  //} else {
+  //  mode = 0;
+  //}
+}
+
+void introclicks() {
+  
+}

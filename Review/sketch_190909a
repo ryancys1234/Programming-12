@@ -1,0 +1,15 @@
+//2019-9-9, review project #1.
+
+void setup(){
+  size(600,600);
+
+}
+void draw(){
+  background(162,192,20);
+  ellipse(100,100,100,100);
+  fill(0,25,255);
+  stroke(0,255,0);
+  strokeWeight(10);
+  rect(100,100,100,100);
+  noLoop();
+}
