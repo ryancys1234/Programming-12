@@ -1,3 +1,3 @@
-## The Basketball Game
+# Basketball
 
-This game implements Fisica mechanics (http://www.ricardmarxer.com/fisica/).
+This game implements [Fisica](http://www.ricardmarxer.com/fisica) mechanics.
