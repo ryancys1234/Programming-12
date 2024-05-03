@@ -1,8 +1,8 @@
-# Programming 12 Review
-This repository contains files and projects made at the start of the Programming 12 course, namely the review unit. Files include notes on variables, functions, and mode frameworks. A general summary of relevant notes is shown below.
+# Review
+This repository contains files and projects made in the review unit at the start of the Programming 12 course. A summary of notes on variables, functions, and mode frameworks is shown below.
 
 
-Global variables are variables at the top, and accessible anywhere. Contrast this with local variables.
+Global variables are variables at the top and accessible anywhere.
 
 
 Variable names / types:
