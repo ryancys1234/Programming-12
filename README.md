@@ -1,2 +1,2 @@
 # Programming 12
-This repository contains projects focusing on topics from the Programming 12 course in the British Columbia curriculum.
+This repository contains projects from the course Programming 12 in the British Columbia curriculum.
