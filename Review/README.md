@@ -20,7 +20,7 @@ Variable names / types:
     char (a single character)
 
   
-Declaring a variable is creating a new variable, giving it a name, and locking in the type of value it stores.
+Declaring a variable involves giving it a name and specifying the type of value it stores.
 
 
 Rules for naming variables:
