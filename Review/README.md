@@ -4,6 +4,7 @@ This repository contains files and projects made in the review unit at the start
 Global variables are variables at the top and accessible anywhere.
 
 Variable names / types:
+
     int (integer)
     float (number with decimal / rational)
     color (store integer that represent color)
@@ -14,6 +15,7 @@ Variable names / types:
 Declaring a variable involves giving it a name and specifying the type of value it stores.
 
 Rules for naming variables:
+
     Only use letters, numbers, and the dollar sign (but no other symbols, including spaces).
     If there is more than one word, the first word is lowercase, but every subsequent word is capitalized. This is known as lowerCamelCase.
 
