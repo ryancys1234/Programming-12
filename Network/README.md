@@ -1,2 +1,2 @@
 ## Network
-The Example project demonstrates networking principles in Processing, with separate server and client sketches allowing the transfer of information between them. The Tic Tac Toe project continues the exploration of the concept, while introducing the utility of 2D arrays into a game dependent on grid structures. The final Chess project extends the characteristics of the Tic Tac Toe project into a more sophisticated chess game.
+The Example project demonstrates elementary networking principles in Processing, with separate server and client sketches transferring information to each other. The Tic Tac Toe and Chess projects continue the exploration of the concept, while introducing the utility of 2D arrays into games dependent on grid structures.
