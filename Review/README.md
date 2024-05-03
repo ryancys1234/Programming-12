@@ -25,9 +25,9 @@ Declaring a variable involves giving it a name and specifying the type of value 
 
 Rules for naming variables:
 
-    1. Only use letters, numbers, dollar sign (but no other symbols, including spaces).
+    Only use letters, numbers, and the dollar sign (but no other symbols, including spaces).
   
-    2. If there is more than one word, the first word is lowercase, but every subsequent word is capitalized.
+    If there is more than one word, the first word is lowercase, but every subsequent word is capitalized. This is known as lowerCamelCase.
   
 
 The variable names int, float, boolean... need only appear once - that is, at the beginning.
