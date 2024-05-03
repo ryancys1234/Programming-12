@@ -1,14 +1,11 @@
 # Review
 This repository contains files and projects made in the review unit at the start of the Programming 12 course. A summary of notes on variables, functions, and mode frameworks is shown below.
 
-
 Global variables are variables at the top and accessible anywhere.
-
 
 Variable names / types:
 
     int (integer)
-
     float (number with decimal / rational)
 
     color (store integer that represent color)
@@ -19,9 +16,7 @@ Variable names / types:
 
     char (a single character)
 
-  
 Declaring a variable involves giving it a name and specifying the type of value it stores.
-
 
 Rules for naming variables:
 
