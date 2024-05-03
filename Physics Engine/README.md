@@ -1,6 +1,6 @@
 ## Physics Engine
 
-This unit of Programming 12 is centered on a particular physics engine, Fisica by Richard Marxer (http://www.ricardmarxer.com/fisica).
+This unit of Programming 12 is centered on the [Fisica](http://www.ricardmarxer.com/fisica) physics engine by Richard Marxer.
 
 
 Notes on fundamental Fisica concepts:
