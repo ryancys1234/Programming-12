@@ -5,7 +5,7 @@ Notes on variables, functions, and mode frameworks:
 
     Global variables are variables at the top and accessible anywhere.
 
-    Variable names / types: int (integer), float (number with decimals / rational number), color (integer which represents color), boolean (true or false), string (text), char (a single character)
+    Variable names / types: int (integer), float (number with decimals / rational number), color (integer which represents color), boolean (true or false), string (text), char (a single character).
 
     Declaring a variable involves giving it a name and specifying the type of value it stores.
 
