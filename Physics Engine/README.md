@@ -2,7 +2,6 @@
 
 This directory contains projects in the Physics Engine unit of the course, centering on the [Fisica](http://www.ricardmarxer.com/fisica) engine by Richard Marxer.
 
-
 Notes on fundamental Fisica concepts:
 
     FWorld world; // Type of object. Many worlds may exist, but only one world is active at a time.
